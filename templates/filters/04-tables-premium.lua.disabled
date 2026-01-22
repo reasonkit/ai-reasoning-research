@@ -1,0 +1,172 @@
+-- ============================================================================
+-- REASONKIT TABLES PREMIUM LUA FILTER
+-- Enhanced table styling with visual improvements
+-- Version: 2.0.0 | January 2026
+-- ============================================================================
+
+-- Table counter
+local table_count = 0
+
+-- ============================================================================
+-- TABLE PROCESSING
+-- ============================================================================
+
+function Table(el)
+  table_count = table_count + 1
+
+  -- Check for special table classes
+  local is_striped = false
+  local is_compact = false
+  local is_wide = false
+  local highlight_col = nil
+
+  if el.attributes then
+    is_striped = el.attributes.striped == "true"
+    is_compact = el.attributes.compact == "true"
+    is_wide = el.attributes.wide == "true"
+    highlight_col = el.attributes["highlight-col"]
+  end
+
+  -- Get caption
+  local caption = ""
+  if el.caption and el.caption.long and #el.caption.long > 0 then
+    caption = pandoc.utils.stringify(el.caption.long[1])
+  end
+
+  -- Build LaTeX table
+  local latex_parts = {}
+
+  -- Opening
+  if is_wide then
+    table.insert(latex_parts, "\\begin{table*}[htbp]")
+  else
+    table.insert(latex_parts, "\\begin{table}[htbp]")
+  end
+
+  table.insert(latex_parts, "\\centering")
+
+  -- Add caption at top (preferred for academic style)
+  if caption ~= "" then
+    table.insert(latex_parts, "\\caption{" .. caption .. "}")
+  end
+
+  -- Table label
+  table.insert(latex_parts, "\\label{tab:table" .. table_count .. "}")
+
+  -- Small size for compact tables
+  if is_compact then
+    table.insert(latex_parts, "\\small")
+  end
+
+  -- Booktabs table
+  -- Determine column count and alignment
+  local col_count = 0
+  local col_spec = ""
+
+  if el.colspecs and #el.colspecs > 0 then
+    col_count = #el.colspecs
+    for i, spec in ipairs(el.colspecs) do
+      local align = spec[1] or "AlignDefault"
+      local letter = "l"
+      if align == "AlignRight" then letter = "r"
+      elseif align == "AlignCenter" then letter = "c"
+      end
+
+      -- Highlight column with color
+      if highlight_col and tonumber(highlight_col) == i then
+        col_spec = col_spec .. ">{\\columncolor{RKCyan!10}}" .. letter
+      else
+        col_spec = col_spec .. letter
+      end
+    end
+  else
+    -- Fallback: count from header row
+    if el.head and el.head.rows and #el.head.rows > 0 then
+      col_count = #el.head.rows[1].cells
+    end
+    col_spec = string.rep("l", col_count)
+  end
+
+  table.insert(latex_parts, "\\begin{tabular}{" .. col_spec .. "}")
+  table.insert(latex_parts, "\\toprule")
+
+  -- Header row
+  if el.head and el.head.rows and #el.head.rows > 0 then
+    for _, row in ipairs(el.head.rows) do
+      local cells = {}
+      for _, cell in ipairs(row.cells) do
+        local content = pandoc.utils.stringify(cell.contents)
+        -- Bold headers
+        table.insert(cells, "\\textbf{" .. content .. "}")
+      end
+      table.insert(latex_parts, table.concat(cells, " & ") .. " \\\\")
+    end
+    table.insert(latex_parts, "\\midrule")
+  end
+
+  -- Body rows
+  if el.bodies then
+    local row_num = 0
+    for _, body in ipairs(el.bodies) do
+      for _, row in ipairs(body.body) do
+        row_num = row_num + 1
+        local cells = {}
+
+        for col_idx, cell in ipairs(row.cells) do
+          local content = pandoc.utils.stringify(cell.contents)
+
+          -- Check for special cell formatting
+          -- Percentage improvements (positive = green, negative = red)
+          if content:match("^%+%d") then
+            content = "\\textcolor{BedRockColor}{" .. content .. "}"
+          elseif content:match("^%-%d") then
+            content = "\\textcolor{BrutalHonestyColor}{" .. content .. "}"
+          end
+
+          -- Bold first column
+          if col_idx == 1 then
+            content = "\\textbf{" .. content .. "}"
+          end
+
+          table.insert(cells, content)
+        end
+
+        -- Striped rows
+        if is_striped and row_num % 2 == 0 then
+          table.insert(latex_parts, "\\rowcolor{RKSurface!5}")
+        end
+
+        table.insert(latex_parts, table.concat(cells, " & ") .. " \\\\")
+      end
+    end
+  end
+
+  table.insert(latex_parts, "\\bottomrule")
+  table.insert(latex_parts, "\\end{tabular}")
+
+  -- Closing
+  if is_wide then
+    table.insert(latex_parts, "\\end{table*}")
+  else
+    table.insert(latex_parts, "\\end{table}")
+  end
+
+  return pandoc.RawBlock('latex', table.concat(latex_parts, "\n"))
+end
+
+-- ============================================================================
+-- SIMPLE TABLE (Pandoc pipe tables)
+-- ============================================================================
+
+function SimpleTable(el)
+  -- Convert to regular table processing
+  return el
+end
+
+-- ============================================================================
+-- RETURN FILTER
+-- ============================================================================
+
+return {
+  {Table = Table}
+}

@@ -1,0 +1,912 @@
+% ============================================================================
+% REASONKIT LUALATEX ULTIMATE TEMPLATE
+% Maximum Microtypography | Brand-Compliant | Visual Excellence
+% Philosophy: "Designed, Not Dreamed" | Structure Beats Intelligence
+% Version: 3.0.0 | Created: January 2026
+% ============================================================================
+%
+% TYPOGRAPHY EXCELLENCE CHECKLIST:
+% [x] microtype: protrusion, expansion, tracking (MAXIMUM)
+% [x] lua-widow-control: Zero orphans/widows
+% [x] selnolig: Intelligent ligature suppression
+% [x] csquotes: Context-aware quotation marks
+% [x] realscripts: True optical superscripts/subscripts
+% [x] lettrine: Premium drop caps
+% [x] fontspec: Full OpenType feature control
+% [x] Per-font microtype configurations
+% [x] Brand-compliant colors from BRAND_IDENTITY.md
+% [x] Inter for headlines (per brand), premium serif for body
+%
+% ============================================================================
+
+% Use article class with options
+\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$babel-lang$,$endif$$if(papersize)$$papersize$paper,$endif$$for(classoption)$$classoption$$sep$,$endfor$]{$documentclass$}
+
+% ============================================================================
+% LUALATEX DETECTION & CORE
+% ============================================================================
+
+\usepackage{iftex}
+\RequireLuaTeX % Ensure we're using LuaLaTeX
+
+% Core LuaLaTeX packages
+\usepackage{luatexbase}
+\usepackage{luacode}
+
+% ============================================================================
+% ULTIMATE MICROTYPOGRAPHY CONFIGURATION
+% ============================================================================
+
+% microtype: The gold standard - MAXIMUM configuration
+\usepackage[
+  activate={true,nocompatibility},  % Enable all features aggressively
+  final,                            % Always apply (never draft)
+  tracking=true,                    % Letterspacing adjustments
+  protrusion=true,                  % Margin protrusion (hanging punctuation)
+  expansion=true,                   % Font expansion (hz-algorithm)
+  factor=1100,                      % Protrusion factor (default 1000)
+  stretch=20,                       % Max font stretch (default 20)
+  shrink=20,                        % Max font shrink (default 20)
+  selected=true,                    % Apply to selected fonts only when specified
+  babel=true                        % Babel integration
+]{microtype}
+
+% PREMIUM PROTRUSION SETTINGS - Enhanced for maximum optical margin alignment
+\SetProtrusion{encoding={*},family={*},series={*},size={-}}{
+  % Punctuation - aggressive protrusion for clean margins
+  {,}={,600},                       % Comma
+  {.}={,800},                       % Period
+  {:}={,600},                       % Colon
+  {;}={,600},                       % Semicolon
+  {!}={,400},                       % Exclamation
+  {?}={,400},                       % Question
+  % Quotes - symmetric protrusion
+  {"}={700,700},                    % Double quote
+  {'}={700,700},                    % Single quote
+  {"}{600,},                       % Opening double quote
+  {"}{,600},                       % Closing double quote
+  {'}{600,},                       % Opening single quote
+  {'}{,600},                       % Closing single quote
+  % Dashes
+  {-}={500,500},                    % Hyphen
+  {–}={400,400},                    % En-dash
+  {—}={300,300},                    % Em-dash
+  % Parentheses and brackets
+  {(}={400,},                       % Opening paren
+  {)}={,400},                       % Closing paren
+  {[}={300,},                       % Opening bracket
+  {]}={,300},                       % Closing bracket
+  % Letters with optical overhang
+  {A}={100,100},
+  {F}={,100},
+  {J}={100,},
+  {K}={,50},
+  {L}={,100},
+  {T}={100,100},
+  {V}={100,100},
+  {W}={50,50},
+  {X}={50,50},
+  {Y}={100,100},
+  {v}={50,50},
+  {w}={50,50},
+  {x}={50,50},
+  {y}={,50}
+}
+
+% Enhanced tracking for small caps and specific contexts
+\SetTracking{encoding={*},shape=sc}{60}
+\SetTracking{encoding={*},series=b,size={-8}}{10}
+
+% ============================================================================
+% ADVANCED TYPOGRAPHY PACKAGES
+% ============================================================================
+
+% lua-widow-control: ZERO orphans and widows - MAXIMUM settings
+\IfFileExists{lua-widow-control.sty}{%
+  \usepackage[
+    emergencystretch=2em,           % Stretch to prevent widows
+    draft=false,                    % Always active
+    max-cost=8000                   % Lower = stricter (default 10000)
+  ]{lua-widow-control}
+}{}
+
+% selnolig: Intelligent ligature suppression for improved readability
+\IfFileExists{selnolig.sty}{%
+  \usepackage{selnolig}
+  % Suppress problematic ligatures
+  \nolig{fi}{f|i}  % Optional: suppress fi ligature in certain contexts
+  \nolig{fl}{f|l}  % Optional: suppress fl ligature in certain contexts
+}{}
+
+% csquotes: Context-aware quotation marks (ESSENTIAL for proper typography)
+\usepackage[
+  autostyle=true,
+  english=american,
+  threshold=1
+]{csquotes}
+
+% realscripts: True optical superscripts/subscripts (not scaled)
+\IfFileExists{realscripts.sty}{%
+  \usepackage{realscripts}
+}{}
+
+% ============================================================================
+% PREMIUM FONT CONFIGURATION (Brand-Compliant)
+% ============================================================================
+
+\usepackage{fontspec}
+\usepackage{unicode-math}
+
+% Default font features for ALL fonts
+\defaultfontfeatures{
+  Ligatures={TeX,Common},
+  Scale=MatchLowercase
+}
+
+% ----------------------------------------------------------------------------
+% SANS FONT: Inter (BRAND REQUIREMENT for headlines)
+% ----------------------------------------------------------------------------
+\IfFontExistsTF{Inter}{%
+  \setsansfont{Inter}[
+    Numbers={Proportional,Lining},
+    Scale=0.95,
+    BoldFont=*-Bold,
+    ItalicFont=*-Italic,
+    BoldItalicFont=*-BoldItalic,
+    Ligatures={Common},
+    Contextuals=Alternate,
+    StylisticSet={1,2}              % Enable stylistic alternates
+  ]
+}{%
+  \IfFontExistsTF{Source Sans 3}{%
+    \setsansfont{Source Sans 3}[Scale=0.95]
+  }{%
+    \setsansfont{Latin Modern Sans}
+  }%
+}
+
+% ----------------------------------------------------------------------------
+% MAIN (BODY) FONT: Premium Serif for scholarly documents
+% EB Garamond - The gold standard for academic publishing
+% ----------------------------------------------------------------------------
+\IfFontExistsTF{EB Garamond}{%
+  \setmainfont{EB Garamond}[
+    Numbers={Proportional,OldStyle},
+    StylisticSet={6},               % Alternate ampersand
+    Contextuals=Alternate,
+    Ligatures={Common,Discretionary,Historic,TeX},
+    BoldFont=*-Bold,
+    ItalicFont=*-Italic,
+    BoldItalicFont=*-BoldItalic,
+    CharacterVariant={5:1}          % Single-story 'a' in italic
+  ]
+}{%
+  \IfFontExistsTF{Libertinus Serif}{%
+    \setmainfont{Libertinus Serif}[
+      Numbers={Proportional,OldStyle},
+      Ligatures={Common,Discretionary,TeX}
+    ]
+  }{%
+    \IfFontExistsTF{Crimson Pro}{%
+      \setmainfont{Crimson Pro}[Numbers=OldStyle]
+    }{%
+      \setmainfont{Latin Modern Roman}
+    }%
+  }%
+}
+
+% ----------------------------------------------------------------------------
+% MONO FONT: JetBrains Mono (BRAND REQUIREMENT)
+% ----------------------------------------------------------------------------
+\IfFontExistsTF{JetBrains Mono}{%
+  \setmonofont{JetBrains Mono}[
+    Scale=0.82,
+    Contextuals=Alternate,
+    Ligatures=TeX,
+    StylisticSet={1,2,3,4,14,19},   % Enable coding ligatures
+    CharacterVariant={1,2}
+  ]
+}{%
+  \IfFontExistsTF{Source Code Pro}{%
+    \setmonofont{Source Code Pro}[Scale=0.82]
+  }{%
+    \IfFontExistsTF{Fira Code}{%
+      \setmonofont{Fira Code}[Scale=0.82]
+    }{%
+      \setmonofont{Latin Modern Mono}[Scale=0.82]
+    }%
+  }%
+}
+
+% ----------------------------------------------------------------------------
+% MATH FONT: Libertinus Math (pairs excellently with EB Garamond)
+% ----------------------------------------------------------------------------
+\IfFontExistsTF{Libertinus Math}{%
+  \setmathfont{Libertinus Math}
+}{%
+  \IfFontExistsTF{EB Garamond Math}{%
+    \setmathfont{EB Garamond Math}
+  }{%
+    \IfFontExistsTF{STIX Two Math}{%
+      \setmathfont{STIX Two Math}
+    }{%
+      \setmathfont{Latin Modern Math}
+    }%
+  }%
+}
+
+% User font overrides
+$if(mainfont)$
+\IfFontExistsTF{$mainfont$}{%
+  \setmainfont{$mainfont$}[$for(mainfontoptions)$$mainfontoptions$$sep$,$endfor$]
+}{}
+$endif$
+
+$if(sansfont)$
+\IfFontExistsTF{$sansfont$}{%
+  \setsansfont{$sansfont$}[$for(sansfontoptions)$$sansfontoptions$$sep$,$endfor$]
+}{}
+$endif$
+
+$if(monofont)$
+\IfFontExistsTF{$monofont$}{%
+  \setmonofont{$monofont$}[$for(monofontoptions)$$monofontoptions$$sep$,$endfor$]
+}{}
+$endif$
+
+% ============================================================================
+% DROP CAPS (Premium Feature)
+% ============================================================================
+
+\IfFileExists{lettrine.sty}{%
+  \usepackage{lettrine}
+  \setcounter{DefaultLines}{3}
+  \renewcommand{\LettrineFontHook}{\color{RKCyan}\bfseries\sffamily}
+  \renewcommand{\LettrineTextFont}{\scshape}
+  \setlength{\DefaultNindent}{0.1em}
+  \setlength{\DefaultFindent}{0.2em}
+}{}
+
+% ============================================================================
+% LAYOUT & GEOMETRY (Premium Spacing)
+% ============================================================================
+
+\usepackage{geometry}
+\geometry{
+  $for(geometry)$$geometry$$sep$,$endfor$,
+  marginparwidth=3cm,
+  marginparsep=0.5cm,
+  heightrounded                     % Ensure integer line count
+}
+
+% Premium line spacing for readability
+\usepackage{setspace}
+$if(linestretch)$
+\setstretch{$linestretch$}
+$else$
+\setstretch{1.12}                   % Optimal for EB Garamond
+$endif$
+
+% Paragraph settings - French spacing (no extra space after periods)
+\usepackage{parskip}
+\frenchspacing
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0.4\baselineskip plus 2pt minus 1pt}
+
+% ============================================================================
+% GRAPHICS & COLOR
+% ============================================================================
+
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{
+  shapes.geometric,
+  calc,
+  positioning,
+  backgrounds,
+  patterns,
+  shadows.blur,
+  decorations.pathmorphing,
+  fadings,
+  shadings,
+  fit
+}
+
+% ============================================================================
+% REASONKIT BRAND COLORS (BRAND_IDENTITY.md - CANONICAL)
+% ============================================================================
+
+% Primary Gradient (Landing Page Standard)
+\definecolor{RKCyan}{HTML}{06B6D4}
+\definecolor{RKPurple}{HTML}{A855F7}
+\definecolor{RKPink}{HTML}{EC4899}
+
+% Success/Alert/Warning
+\definecolor{RKSuccess}{HTML}{10B981}
+\definecolor{RKAlert}{HTML}{F97316}
+\definecolor{RKWarning}{HTML}{FBBF24}
+
+% Background Colors (Void Black System)
+\definecolor{RKVoidBlack}{HTML}{030508}
+\definecolor{RKDeepBlack}{HTML}{0A0D14}
+\definecolor{RKSurface}{HTML}{111827}
+\definecolor{RKElevated}{HTML}{1F2937}
+
+% Text Colors
+\definecolor{RKTextPrimary}{HTML}{F9FAFB}
+\definecolor{RKTextSecondary}{HTML}{9CA3AF}
+\definecolor{RKTextMuted}{HTML}{6B7280}
+\definecolor{RKTextDim}{HTML}{4B5563}
+
+% ThinkTool Protocol Colors
+\definecolor{GigaThinkColor}{HTML}{06B6D4}
+\definecolor{LaserLogicColor}{HTML}{8B5CF6}
+\definecolor{BedRockColor}{HTML}{10B981}
+\definecolor{ProofGuardColor}{HTML}{F59E0B}
+\definecolor{BrutalHonestyColor}{HTML}{EF4444}
+
+% Glow variants (30% opacity equivalents for print)
+\definecolor{RKCyanGlow}{HTML}{B3E5EC}
+\definecolor{RKPurpleGlow}{HTML}{DCC7FB}
+\definecolor{RKPinkGlow}{HTML}{F7C4DB}
+
+% ============================================================================
+% HEADERS & FOOTERS (Premium Design)
+% ============================================================================
+
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\pagestyle{fancy}
+\fancyhf{}
+
+% Header styling with brand colors
+\fancyhead[LE,RO]{\small\sffamily\textcolor{RKTextMuted}{\rightmark}}
+\fancyhead[LO,RE]{\small\sffamily\textcolor{RKTextMuted}{\leftmark}}
+
+% PREMIUM footer with gradient page number orb
+\fancyfoot[C]{%
+  \begin{tikzpicture}[baseline=-0.5ex]
+    % Outer glow
+    \shade[inner color=RKPurple!20,outer color=white]
+      (0,0) circle (0.5cm);
+    % Main orb with gradient
+    \shade[left color=RKCyan,right color=RKPurple]
+      (0,0) circle (0.38cm);
+    % Inner highlight
+    \shade[inner color=white,outer color=RKPurple,opacity=0.3]
+      (-0.1,0.1) circle (0.12cm);
+    % Page number
+    \node[white,font=\scriptsize\bfseries\sffamily] at (0,0) {\thepage};
+  \end{tikzpicture}%
+}
+\fancyfoot[LE]{\footnotesize\sffamily\textcolor{RKTextMuted}{ReasonKit Research}}
+\fancyfoot[RO]{\footnotesize\sffamily\textcolor{RKTextMuted}{\today}}
+
+% Premium header rule with gradient effect
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\headrule}{%
+  \vbox to 0pt{%
+    \hbox to \headwidth{%
+      \textcolor{RKCyan}{\leaders\hrule height 0.6pt\hfill}%
+    }%
+  }%
+}
+\renewcommand{\footrulewidth}{0pt}
+
+% Plain style for first pages
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyfoot[C]{%
+    \begin{tikzpicture}[baseline=-0.5ex]
+      \shade[left color=RKCyan,right color=RKPurple]
+        (0,0) circle (0.38cm);
+      \node[white,font=\scriptsize\bfseries\sffamily] at (0,0) {\thepage};
+    \end{tikzpicture}%
+  }
+  \renewcommand{\headrulewidth}{0pt}
+}
+
+% ============================================================================
+% MARGIN NOTES (Premium)
+% ============================================================================
+
+\usepackage{marginnote}
+\usepackage{mparhack}
+\renewcommand*{\marginfont}{\footnotesize\itshape\color{RKTextMuted}\sffamily}
+
+% ============================================================================
+% TABLES (Premium Styling)
+% ============================================================================
+
+\usepackage{calc}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{colortbl}
+\usepackage{tabularx}
+
+% Premium table configuration
+\setlength{\heavyrulewidth}{0.12em}
+\setlength{\lightrulewidth}{0.06em}
+\setlength{\cmidrulewidth}{0.04em}
+\setlength{\aboverulesep}{0.5ex}
+\setlength{\belowrulesep}{0.5ex}
+\arrayrulecolor{RKPurple}
+
+% Subtle alternating rows
+\rowcolors{2}{RKSurface!5}{white}
+
+% ============================================================================
+% LISTS (Brand-Compliant)
+% ============================================================================
+
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=1.5em}
+\setlist[itemize,1]{label=\textcolor{RKCyan}{\textbullet}}
+\setlist[itemize,2]{label=\textcolor{RKPurple}{\textendash}}
+\setlist[itemize,3]{label=\textcolor{RKPink}{\scriptsize\textbullet}}
+
+% Pandoc tightlist
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}%
+}
+
+% ============================================================================
+% CODE BLOCKS (Premium Syntax Highlighting)
+% ============================================================================
+
+\usepackage{fancyvrb}
+\usepackage{framed}
+
+% Shaded environment
+\definecolor{shadecolor}{HTML}{0F172A}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{
+  commandchars=\\\{\},
+  fontsize=\small,
+  frame=leftline,
+  framerule=2.5pt,
+  rulecolor=\color{RKCyan},
+  xleftmargin=1em,
+  baselinestretch=1.1
+}
+
+% Brand-compliant syntax highlighting
+\newcommand{\KeywordTok}[1]{\textcolor{RKCyan}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor{RKPurple}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor{RKPink}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor{RKPink}{#1}}
+\newcommand{\FloatTok}[1]{\textcolor{RKPink}{#1}}
+\newcommand{\ConstantTok}[1]{\textcolor{RKPink}{#1}}
+\newcommand{\CharTok}[1]{\textcolor{RKPink}{#1}}
+\newcommand{\SpecialCharTok}[1]{\textcolor{RKPink}{#1}}
+\newcommand{\StringTok}[1]{\textcolor{BedRockColor}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor{BedRockColor}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor{BedRockColor}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\CommentTok}[1]{\textcolor{RKTextMuted}{\textit{#1}}}
+\newcommand{\DocumentationTok}[1]{\textcolor{RKTextMuted}{\textit{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor{RKTextMuted}{#1}}
+\newcommand{\CommentVarTok}[1]{\textcolor{RKTextMuted}{\textit{#1}}}
+\newcommand{\OtherTok}[1]{#1}
+\newcommand{\FunctionTok}[1]{\textcolor{RKPurple}{#1}}
+\newcommand{\VariableTok}[1]{#1}
+\newcommand{\ControlFlowTok}[1]{\textcolor{RKCyan}{\textbf{#1}}}
+\newcommand{\OperatorTok}[1]{\textcolor{RKTextSecondary}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\PreprocessorTok}[1]{\textcolor{RKCyan}{#1}}
+\newcommand{\AttributeTok}[1]{\textcolor{RKPurple}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor{RKTextMuted}{\textit{#1}}}
+\newcommand{\WarningTok}[1]{\textcolor{RKWarning}{\textbf{#1}}}
+\newcommand{\AlertTok}[1]{\textcolor{BrutalHonestyColor}{\textbf{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor{BrutalHonestyColor}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+
+% ============================================================================
+% MATH
+% ============================================================================
+
+\usepackage{amsmath}
+
+% ============================================================================
+% BOXES & FRAMES (Premium tcolorbox)
+% ============================================================================
+
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable,theorems}
+
+% Premium base style
+\tcbset{
+  rkbase/.style={
+    enhanced,
+    breakable,
+    boxrule=0.5pt,
+    arc=4pt,
+    outer arc=4pt,
+    left=12pt,
+    right=12pt,
+    top=10pt,
+    bottom=10pt,
+    fonttitle=\bfseries\sffamily,
+    shadow={2pt}{-2pt}{0pt}{black!15}
+  }
+}
+
+% ThinkTool boxes (all 5)
+\newtcolorbox{gigathinkbox}[1][]{
+  rkbase,
+  colback=GigaThinkColor!5,
+  colframe=GigaThinkColor,
+  coltitle=white,
+  title={\sffamily GigaThink --- Divergent Exploration},
+  borderline west={4pt}{0pt}{GigaThinkColor},
+  #1
+}
+
+\newtcolorbox{laserlogicbox}[1][]{
+  rkbase,
+  colback=LaserLogicColor!5,
+  colframe=LaserLogicColor,
+  coltitle=white,
+  title={\sffamily LaserLogic --- Convergent Analysis},
+  borderline west={4pt}{0pt}{LaserLogicColor},
+  #1
+}
+
+\newtcolorbox{bedrockbox}[1][]{
+  rkbase,
+  colback=BedRockColor!5,
+  colframe=BedRockColor,
+  coltitle=white,
+  title={\sffamily BedRock --- Evidence Grounding},
+  borderline west={4pt}{0pt}{BedRockColor},
+  #1
+}
+
+\newtcolorbox{proofguardbox}[1][]{
+  rkbase,
+  colback=ProofGuardColor!5,
+  colframe=ProofGuardColor,
+  coltitle=black,
+  title={\sffamily ProofGuard --- Verification},
+  borderline west={4pt}{0pt}{ProofGuardColor},
+  #1
+}
+
+\newtcolorbox{brutalhonestybox}[1][]{
+  rkbase,
+  colback=BrutalHonestyColor!5,
+  colframe=BrutalHonestyColor,
+  coltitle=white,
+  title={\sffamily BrutalHonesty --- Critical Assessment},
+  borderline west={4pt}{0pt}{BrutalHonestyColor},
+  #1
+}
+
+\newtcolorbox{reasonkitbox}[2][]{
+  rkbase,
+  colback=RKPurple!5,
+  colframe=RKPurple,
+  coltitle=white,
+  title={#2},
+  borderline north={3pt}{0pt}{RKCyan},
+  #1
+}
+
+% ============================================================================
+% PROTOCOL COMMANDS
+% ============================================================================
+
+\newcommand{\reasonkit}{\textsf{\textbf{ReasonKit}}}
+\newcommand{\rktagline}{\textit{Designed, Not Dreamed}}
+
+\newcommand{\gigathink}{\textcolor{GigaThinkColor}{\textsf{\textbf{GigaThink}}}}
+\newcommand{\laserlogic}{\textcolor{LaserLogicColor}{\textsf{\textbf{LaserLogic}}}}
+\newcommand{\bedrock}{\textcolor{BedRockColor}{\textsf{\textbf{BedRock}}}}
+\newcommand{\proofguard}{\textcolor{ProofGuardColor}{\textsf{\textbf{ProofGuard}}}}
+\newcommand{\brutalhonesty}{\textcolor{BrutalHonestyColor}{\textsf{\textbf{BrutalHonesty}}}}
+
+% ============================================================================
+% MARGIN ANNOTATIONS (Premium Visual)
+% ============================================================================
+
+\newcommand{\protocolmargin}[2]{%
+  \marginnote{%
+    \begin{tikzpicture}
+      \shade[left color=RKCyan,right color=RKPurple]
+        (0,0) circle (0.45cm);
+      \node[white,font=\tiny\bfseries\sffamily] at (0,0) {#1};
+    \end{tikzpicture}\\[3pt]
+    \textcolor{RKTextMuted}{\tiny\sffamily #2}
+  }%
+}
+
+\newcommand{\confidencemargin}[1]{%
+  \marginnote{%
+    \begin{tikzpicture}
+      \fill[RKSurface] (0,0) rectangle (1.2,0.3);
+      \shade[left color=RKCyan,right color=RKPurple]
+        (0,0) rectangle ({1.2*#1/100},0.3);
+      \node[anchor=west,font=\tiny\bfseries\sffamily] at (1.35,0.15) {#1\%};
+    \end{tikzpicture}
+  }%
+}
+
+\newcommand{\validatedmargin}{%
+  \marginnote{%
+    \begin{tikzpicture}
+      \shade[inner color=BedRockColor!80,outer color=BedRockColor]
+        (0,0) circle (0.35cm);
+      \draw[white,line width=0.7mm]
+        (-0.12,-0.05) -- (-0.02,0.08) -- (0.15,-0.1);
+    \end{tikzpicture}%
+  }%
+}
+
+\newcommand{\fallacymargin}[1]{%
+  \marginnote{%
+    \begin{tikzpicture}
+      \fill[BrutalHonestyColor]
+        (0,0) -- (0.28,0.48) -- (0.56,0) -- cycle;
+      \node[white,font=\tiny\bfseries\sffamily] at (0.28,0.18) {!};
+    \end{tikzpicture}\\[3pt]
+    \textcolor{BrutalHonestyColor}{\tiny\sffamily #1}
+  }%
+}
+
+% ============================================================================
+% SECTION STYLING (Premium Titlesec - Brand Compliant)
+% ============================================================================
+
+\usepackage{titlesec}
+
+% Section: Cyan box with number, Inter font
+\titleformat{\section}
+  {\normalfont\Large\bfseries\sffamily\color{RKCyan}}
+  {\colorbox{RKCyan}{\makebox[2em][c]{\color{white}\thesection}}}
+  {0.8em}
+  {}
+  [\vspace{-0.5ex}\textcolor{RKCyan!30}{\rule{\linewidth}{0.4pt}}]
+
+% Subsection: Purple accent
+\titleformat{\subsection}
+  {\normalfont\large\bfseries\sffamily\color{RKPurple}}
+  {\textcolor{RKPurple}{\thesubsection}}
+  {0.5em}
+  {}
+
+% Subsubsection: Pink accent
+\titleformat{\subsubsection}
+  {\normalfont\normalsize\bfseries\sffamily\color{RKPink}}
+  {\textcolor{RKPink}{\thesubsubsection}}
+  {0.5em}
+  {}
+
+% Premium spacing
+\titlespacing*{\section}{0pt}{3ex plus 1ex minus .2ex}{2ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{2.5ex plus 1ex minus .2ex}{1.2ex plus .2ex}
+\titlespacing*{\subsubsection}{0pt}{2ex plus 1ex minus .2ex}{1ex plus .2ex}
+
+% ============================================================================
+% HYPERLINKS
+% ============================================================================
+
+\usepackage[unicode=true,bookmarks=true,pdfusetitle]{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=RKPurple,
+  urlcolor=RKCyan,
+  citecolor=RKPink,
+  filecolor=RKCyan,
+  pdftitle={$title$},
+  pdfauthor={$author$},
+  pdfsubject={ReasonKit Research Document},
+  pdfkeywords={ReasonKit,Structured Reasoning,AI Research},
+  pdfcreator={LuaLaTeX + Pandoc + ReasonKit Ultimate}
+}
+
+% ============================================================================
+% BLOCK QUOTES (Premium Styling)
+% ============================================================================
+
+\renewenvironment{quote}{%
+  \list{}{%
+    \leftmargin=2em
+    \rightmargin=1em
+    \topsep=0.6em
+    \parsep=0pt
+    \listparindent=0pt
+  }%
+  \item\relax
+  \begin{tikzpicture}[overlay,remember picture]
+    \shade[left color=RKCyan,right color=RKPurple,opacity=0.8]
+      (0,0) rectangle (3pt,\baselineskip*2);
+  \end{tikzpicture}%
+  \hspace{0.75em}%
+  \begin{minipage}[t]{\dimexpr\linewidth-3pt-0.75em}%
+  \itshape\color{RKTextSecondary}%
+}{%
+  \end{minipage}%
+  \endlist
+}
+
+% ============================================================================
+% PREMIUM TITLE PAGE
+% ============================================================================
+
+\renewcommand{\maketitle}{%
+  \begin{titlepage}
+    \centering
+    \vspace*{2cm}
+
+    % PREMIUM LUMINOUS POLYHEDRON (Brand Logo Concept)
+    \begin{tikzpicture}[scale=2.5]
+      % Outer ambient glow
+      \shade[inner color=RKPurple!25,outer color=white,shading=radial]
+        (0,0) circle (2.5cm);
+
+      % Main hexagonal polyhedron with gradient
+      \shade[left color=RKCyan,middle color=RKPurple,right color=RKPink,shading angle=45]
+        (0,1.732) -- (1.5,0.866) -- (1.5,-0.866) --
+        (0,-1.732) -- (-1.5,-0.866) -- (-1.5,0.866) -- cycle;
+
+      % Inner facet structure (glass-like transparency)
+      \fill[white,opacity=0.15]
+        (0,1.732) -- (0,0) -- (1.5,0.866) -- cycle;
+      \fill[white,opacity=0.08]
+        (0,0) -- (1.5,0.866) -- (1.5,-0.866) -- cycle;
+
+      % Internal reasoning lines (Tree of Thoughts motif)
+      \draw[white,line width=0.4mm,opacity=0.7]
+        (0,1.732) -- (0,0) -- (1.5,-0.866);
+      \draw[white,line width=0.4mm,opacity=0.7]
+        (-1.5,0.866) -- (0,0) -- (1.5,0.866);
+      \draw[white,line width=0.3mm,opacity=0.5]
+        (0,-1.732) -- (0,0);
+
+      % Central convergence point (glow)
+      \shade[inner color=white,outer color=RKCyan!60]
+        (0,0) circle (0.25cm);
+      \fill[white] (0,0) circle (0.08cm);
+
+      % Edge highlights
+      \draw[white,line width=0.2mm,opacity=0.4]
+        (0,1.732) -- (1.5,0.866) -- (1.5,-0.866);
+    \end{tikzpicture}
+
+    \vspace{1.8cm}
+
+    % Title
+    {\Huge\bfseries\sffamily\color{RKPurple}
+      $title$
+    \par}
+
+    \vspace{0.8cm}
+
+    % Subtitle
+    $if(subtitle)$
+    {\Large\sffamily\color{RKCyan}
+      $subtitle$
+    \par}
+    $endif$
+
+    \vspace{2.5cm}
+
+    % Author
+    {\large\sffamily
+      $author$
+    \par}
+
+    \vspace{0.6cm}
+
+    % Date & Version
+    {\sffamily\color{RKTextMuted}
+      $date$
+      $if(version)$ · Version $version$$endif$
+    \par}
+
+    \vfill
+
+    % Footer branding bar
+    \begin{tikzpicture}
+      \shade[left color=RKCyan,right color=RKPurple]
+        (0,0) rectangle (8cm,0.08cm);
+    \end{tikzpicture}
+
+    \vspace{0.4cm}
+
+    {\small\sffamily\bfseries\color{RKPurple}\reasonkit}
+    \hspace{2cm}
+    {\scriptsize\sffamily\color{RKTextMuted}\rktagline}
+
+  \end{titlepage}
+}
+
+% ============================================================================
+% ABSTRACT (Premium Box)
+% ============================================================================
+
+$if(abstract)$
+\renewenvironment{abstract}{%
+  \begin{tcolorbox}[
+    enhanced,
+    colback=RKPurple!3,
+    colframe=RKPurple,
+    boxrule=0.6pt,
+    arc=4pt,
+    title={\sffamily Abstract},
+    fonttitle=\bfseries\sffamily\large,
+    coltitle=RKPurple,
+    attach boxed title to top left={yshift=-3mm,xshift=5mm},
+    boxed title style={
+      colback=white,
+      boxrule=0pt,
+      arc=3pt
+    },
+    borderline north={2pt}{0pt}{RKCyan}
+  ]
+  \itshape
+}{%
+  \end{tcolorbox}
+  \vspace{1.2em}
+}
+$endif$
+
+% ============================================================================
+% TOC STYLING (Premium)
+% ============================================================================
+
+\usepackage{titletoc}
+\titlecontents{section}[1.5em]
+  {\addvspace{0.6em}\bfseries\sffamily}
+  {\textcolor{RKCyan}{\contentslabel{1.5em}}}
+  {\hspace*{-1.5em}}
+  {\titlerule*[0.5pc]{.}\contentspage}
+
+\titlecontents{subsection}[3.8em]
+  {\sffamily}
+  {\textcolor{RKPurple}{\contentslabel{2.3em}}}
+  {\hspace*{-2.3em}}
+  {\titlerule*[0.5pc]{.}\contentspage}
+
+\titlecontents{subsubsection}[7em]
+  {\small\sffamily}
+  {\textcolor{RKPink}{\contentslabel{3.2em}}}
+  {\hspace*{-3.2em}}
+  {\titlerule*[0.5pc]{.}\contentspage}
+
+% ============================================================================
+% DOCUMENT
+% ============================================================================
+
+\begin{document}
+
+% Title page
+\maketitle
+
+% Abstract
+$if(abstract)$
+\begin{abstract}
+$abstract$
+\end{abstract}
+$endif$
+
+% Table of contents
+$if(toc)$
+{
+  \hypersetup{linkcolor=RKTextMuted}
+  \tableofcontents
+  \clearpage
+}
+$endif$
+
+% Main content
+$body$
+
+\end{document}

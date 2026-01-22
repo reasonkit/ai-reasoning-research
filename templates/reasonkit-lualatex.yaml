@@ -1,0 +1,95 @@
+# ============================================================================
+# REASONKIT PANDOC DEFAULTS - LUALATEX PREMIUM
+# State-of-the-Art Microtypesetting | Best Fonts | Visual Excellence
+# Version: 2.0.0 | January 2026
+# ============================================================================
+
+# Input/Output
+from: markdown+fenced_divs+bracketed_spans+fenced_code_attributes+footnotes+pipe_tables+yaml_metadata_block+tex_math_dollars+raw_tex+smart+auto_identifiers+header_attributes+implicit_figures+link_attributes+strikeout+superscript+subscript+task_lists+definition_lists+example_lists+emoji
+
+to: latex
+
+# PDF Engine
+pdf-engine: lualatex
+pdf-engine-opt:
+  - --shell-escape
+  - --interaction=nonstopmode
+  - --synctex=1
+  - --file-line-error
+
+# Template
+template: templates/reasonkit-lualatex-premium.tex
+
+# Document Settings
+standalone: true
+number-sections: true
+toc: true
+toc-depth: 3
+
+# Metadata Defaults
+metadata:
+  documentclass: article
+  papersize: a4
+  classoption:
+    - oneside
+    - openany
+  geometry:
+    - margin=1in
+    - inner=1.25in
+    - outer=1in
+  fontsize: 11pt
+  linestretch: "1.15"
+  lang: en-US
+
+  # Premium Font Stack (will use fallbacks if unavailable)
+  mainfont: "EB Garamond"
+  mainfontoptions:
+    - "Numbers=OldStyle"
+    - "Ligatures=Common"
+  sansfont: "Source Sans 3"
+  sansfontoptions:
+    - "Scale=0.92"
+  monofont: "JetBrains Mono"
+  monofontoptions:
+    - "Scale=0.85"
+    - "Contextuals=Alternate"
+
+  # ReasonKit Branding
+  brand-name: "ReasonKit"
+  tagline: "Designed, Not Dreamed"
+
+  # PDF Metadata
+  pdftitle: "ReasonKit Research Document"
+  pdfauthor: "ReasonKit"
+  pdfsubject: "Structured Reasoning Research"
+  pdfkeywords: "ReasonKit, AI, Reasoning, Research"
+  pdfcreator: "LuaLaTeX + Pandoc + ReasonKit Premium"
+
+# Variables
+variables:
+  colorlinks: true
+  linkcolor: "RKPurple"
+  urlcolor: "RKCyan"
+  citecolor: "RKPink"
+  toccolor: "RKPurple"
+
+  # ReasonKit specific
+  reasonkit-version: "2.0.0"
+  protocol-chain: "GigaThink → LaserLogic → BedRock → ProofGuard → BrutalHonesty"
+
+# Filters (in order)
+filters:
+  - templates/filters/00-visual-enhancements.lua
+  - templates/filters/01-typography.lua
+  - templates/filters/02-protocol-boxes.lua
+  - templates/filters/03-margin-annotations.lua
+  - templates/filters/04-tables-premium.lua
+  - templates/filters/05-figures-captions.lua
+
+# Highlight Style
+highlight-style: tango
+
+# Bibliography (if present)
+citeproc: true
+bibliography: references.bib
+csl: apa-7th-edition.csl
