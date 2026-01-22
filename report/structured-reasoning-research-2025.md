@@ -66,6 +66,15 @@ This report provides the empirical foundation for structured reasoning approache
 ![Quantified performance gains from structured reasoning techniques across peer-reviewed research (2022–2025). Key improvements include 18.5× for Tree-of-Thoughts, +22% for Chain-of-Thought, +18% for Self-Consistency, and significant test-time compute efficiency gains.](generated-visuals/structured-reasoning-gains.pdf){#fig:gains width=85%}
 
 
+## Plain-Language Summary
+
+**What this report is about:** When you ask an AI a hard question, *how* the AI thinks through the problem matters as much as what it knows. This report reviews three years of research showing that giving AI systems structured ways to reason—like breaking problems into steps, exploring multiple solution paths, or checking their own work—dramatically improves their accuracy.
+
+**Key takeaway for non-experts:** AI systems that "think out loud" step-by-step can solve problems they would otherwise fail. The most advanced technique (Tree-of-Thoughts) increased success rates from 4% to 74% on a challenging math puzzle. However, these improvements come with trade-offs: structured reasoning takes longer and costs more to run.
+
+**Why it matters:** As AI systems are deployed in high-stakes domains (healthcare, finance, legal), the ability to reason systematically—and to show their reasoning—becomes critical for safety and trust.
+
+
 # Scope and Limitations
 
 This report focuses on **publicly documented research** on structured reasoning in LLMs published between 2022 and January 2026. The following limitations apply:
@@ -100,6 +109,20 @@ Before diving into the chronological research evolution, this section provides a
 | **OpenAI o1/o3** | 2024–25 | Test-time compute scaling | Dynamic allocation | Compute budget | Cost ↔ Reasoning depth |
 | **Extended Thinking** | 2025 | Internal reasoning chains (hidden) | Sequential | Thinking tokens | Interpretability ↔ Performance |
 | **DeepSeek R1** | 2025 | RL-optimized reasoning trajectories | RL-optimized | RL iterations | Training cost ↔ Robustness |
+
+## Reasoning Paradigm Classification
+
+Methods can be categorized by their underlying computational paradigm:
+
+| Paradigm | Characteristics | Methods | Strengths | Limitations |
+|----------|----------------|---------|-----------|-------------|
+| **Neural Sequential** | Pure transformer inference, step-by-step | CoT, Extended Thinking | Natural language; scales with LLM capability | Error propagation; limited backtracking |
+| **Neural Ensemble** | Multiple parallel paths, aggregation | Self-Consistency, Best-of-N | Robustness via diversity | Linear compute scaling |
+| **Neural Search** | Explicit exploration + pruning | ToT, MCTS variants | Can recover from errors | High latency; memory intensive |
+| **Hybrid Neuro-Symbolic** | Neural + formal symbolic systems | AlphaGeometry, AlphaProof | Provable correctness on structured domains | Requires domain-specific symbolic engine |
+| **RL-Optimized** | Reinforcement learning on reasoning trajectories | DeepSeek R1, RLVR | Self-improving; verifiable rewards | Training complexity; reward hacking risk |
+
+**Cross-Paradigm Trend:** Production systems increasingly combine paradigms—e.g., using neural search (ToT) with RL-trained value functions (PRM) for step scoring.
 
 ## Key Relationships
 
@@ -578,6 +601,53 @@ These case studies are illustrative examples synthesized from publicly available
 - **Interpretability:** Making reasoning traces meaningful for non-experts
 - **Calibration:** Ensuring confidence scores match actual reliability
 
+## Future Research Directions {#sec:future-directions}
+
+Based on current research trajectories and identified gaps, we highlight high-priority research directions:
+
+### Near-Term (2025–2026)
+
+| Direction | Current State | Target | Key Challenge |
+|-----------|---------------|--------|---------------|
+| **Multi-step reasoning beyond 3 hops** | Degradation after ~5 steps | Reliable 10+ step chains | Error accumulation |
+| **Cross-modal reasoning** | Text-focused | Text + code + visual | Representation alignment |
+| **Efficiency breakthroughs** | 10–100× compute overhead | <2× for equivalent quality | Compute-accuracy tradeoff |
+| **Confidence calibration** | Poorly calibrated | Calibrated uncertainty | Epistemic vs. aleatoric |
+
+### Medium-Term (2026–2028)
+
+1. **Formal verification of reasoning chains:** Integrating proof assistants (Lean, Coq) with neural reasoning to provide mathematical guarantees on specific reasoning steps.
+
+2. **Continual learning during inference:** Models that update beliefs during extended reasoning without catastrophic forgetting—related to test-time adaptation research.
+
+3. **Compositional generalization:** True systematic composition of learned reasoning primitives, addressing the "COGS" and "SCAN" generalization gaps.
+
+### Specialized Reasoning Domains
+
+| Domain | Current Capability | Research Gap |
+|--------|-------------------|--------------|
+| **Causal reasoning** | Correlation-based | Interventional reasoning |
+| **Temporal reasoning** | Limited duration modeling | Long-horizon planning |
+| **Counterfactual reasoning** | Basic "what-if" | Nested counterfactuals |
+| **Spatial reasoning** | 2D pattern matching | 3D dynamic environments |
+
+### Validated Neuro-Symbolic Systems (2024)
+
+DeepMind's geometry reasoning systems demonstrate successful neuro-symbolic integration:
+
+- **AlphaGeometry** (January 2024): Solved 25/30 IMO geometry problems by combining a language model with a symbolic deduction engine. Achieved silver-medal level performance.
+
+- **AlphaProof** (July 2024): Reinforcement learning system for formal mathematical reasoning in Lean. Combined with AlphaGeometry 2, achieved silver-medal performance at 2024 IMO (4/6 problems solved).
+
+These systems validate the potential of hybrid approaches that combine neural pattern recognition with formal symbolic methods.
+
+### Open Challenges
+
+1. **The "last mile" problem:** Reasoning systems achieve high accuracy on benchmarks but struggle with production edge cases
+2. **Cost-performance Pareto frontier:** No clear optimal tradeoff between reasoning quality and compute cost
+3. **Explainability for non-experts:** Reasoning traces remain technical; bridging to natural language explanations is unsolved
+4. **Robustness to adversarial inputs:** Reasoning chains can be manipulated with subtle prompt injections
+
 
 ## Benchmark Overfitting and Transferability Disclosure {#sec:overfitting}
 
@@ -793,6 +863,66 @@ Wu, Y., Yang, X., & Xu, J. (2025). *Towards reasoning era: A survey of long chai
 
 Yao, S., Yu, D., Zhao, J., Shafran, I., Griffiths, T. L., Cao, Y., & Narasimhan, K. (2023). *Tree of thoughts: Deliberate problem solving with large language models*. In *Advances in Neural Information Processing Systems 36 (NeurIPS 2023)*. https://arxiv.org/abs/2305.10601
 
+
+# Broader Impact Statement
+
+This section addresses the societal implications of structured reasoning research, following NeurIPS guidelines for responsible AI reporting.
+
+## Positive Impacts
+
+**Improved Decision Support.** Structured reasoning techniques make AI systems more reliable in high-stakes domains. The case studies in this report demonstrate measurable benefits: reduced diagnostic errors in healthcare, improved fraud detection in finance, and accelerated code review in software development.
+
+**Enhanced Transparency.** Chain-of-thought and process reward models produce auditable reasoning traces. This transparency enables human oversight, supports regulatory compliance, and builds justified trust in AI systems.
+
+**Democratized Access.** Knowledge distillation allows smaller organizations to deploy reasoning capabilities that previously required massive infrastructure. A 7B parameter model with Self-Consistency can achieve 80–85% of frontier model performance at 1/100th the cost.
+
+## Potential Risks and Mitigations
+
+**Overreliance Risk.** Users may place excessive trust in AI reasoning outputs, particularly when reasoning traces appear coherent but reach incorrect conclusions.
+
+- *Mitigation:* Implement confidence calibration; display uncertainty bounds; require human review for consequential decisions.
+
+**Benchmark Gaming.** Models optimized for specific benchmarks may not generalize to real-world reasoning tasks (see §5 on benchmark overfitting).
+
+- *Mitigation:* Evaluate on held-out tasks; measure transferability; report performance on adversarial probes.
+
+**Dual-Use Concerns.** Sophisticated reasoning capabilities could enhance persuasion systems or automate deceptive content generation.
+
+- *Mitigation:* Apply content filters; monitor for misuse patterns; implement rate limiting on sensitive reasoning requests.
+
+**Environmental Costs.** Extended thinking and multi-path sampling increase computational requirements substantially (10–100× tokens per query).
+
+- *Mitigation:* Use efficient inference; prefer distilled models; document compute requirements; offset carbon where possible.
+
+## Fairness and Bias Considerations
+
+Structured reasoning techniques do not inherently reduce bias present in training data. In fact, longer reasoning chains may amplify certain biases by providing plausible-sounding justifications for biased conclusions. Practitioners should:
+
+1. Audit reasoning traces for systematic bias patterns
+2. Test on demographically diverse evaluation sets
+3. Implement fairness constraints in reward models
+4. Document known limitations for specific populations
+
+## Recommendations for Responsible Deployment
+
+| Stage | Recommendation |
+|-------|---------------|
+| **Pre-deployment** | Conduct adversarial red-teaming; document failure modes; establish performance baselines |
+| **Deployment** | Implement human-in-the-loop for high-stakes decisions; log reasoning traces for audit |
+| **Post-deployment** | Monitor for distribution shift; collect user feedback; retrain on identified failures |
+
+## Limitations of This Report
+
+This literature review has inherent limitations:
+
+- **Temporal scope**: Research landscape evolves rapidly; findings may become outdated
+- **Publication bias**: Published results skew toward positive outcomes
+- **Benchmark dependency**: Performance claims rely on potentially flawed evaluation methods
+- **Access limitations**: Some frontier model details are proprietary and unverifiable
+
+We encourage readers to apply appropriate skepticism and verify claims against their specific use cases.
+
+---
 
 # License and Attribution
 
