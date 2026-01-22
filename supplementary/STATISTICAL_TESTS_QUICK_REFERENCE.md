@@ -81,6 +81,7 @@ For use when revising your structured reasoning research report.
 ### For Your Binary Outcomes (Accuracy %):
 
 **Cohen's h** (preferred for proportions):
+
 ```
 h = 2 × [arcsin(√p₂) - arcsin(√p₁)]
 
@@ -96,6 +97,7 @@ Your examples:
 ```
 
 ### Relative Risk (Alternative):
+
 ```
 RR = p_new / p_baseline
 
@@ -113,11 +115,13 @@ Your examples:
 ### Example 1: Tree-of-Thoughts (Game of 24)
 
 **What you report now:**
+
 ```
 74% vs 4%, improvement = 70pp (18.5x)
 ```
 
 **What you SHOULD report (with CI):**
+
 ```
 74% vs 4%, improvement = +70pp [62–78]pp (18.5× [8.6×–39.4×])
                                 ↑─────────────↑
@@ -126,6 +130,7 @@ Your examples:
 ```
 
 **How to compute CI:**
+
 ```
 Method: Two-proportion Z-test
 Data: 74/100 correct vs 4/100 correct (n=100 each)
@@ -143,11 +148,13 @@ CI = [0.606, 0.794] = [60.6%, 79.4%] ≈ [62–78]pp
 ### Example 2: Self-Consistency (GSM8K)
 
 **What you report now:**
+
 ```
 56.5% → 74.4%, improvement = +17.9pp
 ```
 
 **What you SHOULD report (with CI):**
+
 ```
 56.5% → 74.4%, improvement = +17.9pp [16.1–19.7]pp, p < 0.0001***
                                       ↑─────────────↑
@@ -155,6 +162,7 @@ CI = [0.606, 0.794] = [60.6%, 79.4%] ≈ [62–78]pp
 ```
 
 **How to compute CI:**
+
 ```
 Method: Two-proportion Z-test
 Data: n₁ ≈ 1,319, p₁ = 0.565, p₂ = 0.744
@@ -173,16 +181,17 @@ CI = [0.161, 0.197] = [16.1%, 19.7%]  ✓ [16.1–19.7]pp
 
 Rate each claim in your report:
 
-| Criterion | ToT | SC | ET | o3 | Efficiency |
-|-----------|-----|-----|-----|------|------------|
-| **Source published?** | ✓ | ✓ | ✗ | ✗ | ✓ |
-| **Peer-reviewed?** | ✓ | ✓ | ✗ | ✗ | ✓ |
-| **SE/CI reported?** | ✗ | ✓ | ✗ | ✗ | ✗ |
-| **Sample size (n) disclosed?** | ✓ | ✓ | ✗ | ✗ | ✗ |
-| **Reproducible?** | ✓ (Code on GitHub) | ✓ | Limited | Very Limited | Pending |
-| **Confidence Tier** | **1** | **1** | **3** | **4** | **2** |
+| Criterion                      | ToT                | SC    | ET      | o3           | Efficiency |
+| ------------------------------ | ------------------ | ----- | ------- | ------------ | ---------- |
+| **Source published?**          | ✓                  | ✓     | ✗       | ✗            | ✓          |
+| **Peer-reviewed?**             | ✓                  | ✓     | ✗       | ✗            | ✓          |
+| **SE/CI reported?**            | ✗                  | ✓     | ✗       | ✗            | ✗          |
+| **Sample size (n) disclosed?** | ✓                  | ✓     | ✗       | ✗            | ✗          |
+| **Reproducible?**              | ✓ (Code on GitHub) | ✓     | Limited | Very Limited | Pending    |
+| **Confidence Tier**            | **1**              | **1** | **3**   | **4**        | **2**      |
 
 **Legend:**
+
 ```
 Tier 1: High confidence (peer-reviewed, full data disclosed)
 Tier 2: Strong confidence (replicated, some gaps)
@@ -197,15 +206,15 @@ Tier 4: Provisional (announced, not peer-reviewed)
 ### HIGH PRIORITY (Statistical accuracy):
 
 - [ ] **Add CI to ToT claim:**
-  From: `74% vs 4% (18.5x)`
-  To: `74% vs 4% [62–78]pp (18.5× [8.6×–39.4×])`
+      From: `74% vs 4% (18.5x)`
+      To: `74% vs 4% [62–78]pp (18.5× [8.6×–39.4×])`
 
 - [ ] **Add heterogeneity to SC claim:**
-  Add: "Improvements varied across benchmarks (Cochran's Q = 24.3, p = 0.0002, I² = 87.7%), with larger gains on harder tasks."
+      Add: "Improvements varied across benchmarks (Cochran's Q = 24.3, p = 0.0002, I² = 87.7%), with larger gains on harder tasks."
 
 - [ ] **Separate o3 from o1 claims:**
-  o3 (December 2024): 87.5% on ARC-AGI [high compute only]
-  o1 (September 2024): 92.3% on AIME [separate evaluation]
+      o3 (December 2024): 87.5% on ARC-AGI [high compute only]
+      o1 (September 2024): 92.3% on AIME [separate evaluation]
 
 ### MEDIUM PRIORITY (Clarity):
 
@@ -228,18 +237,22 @@ Use these tags in your report to signal trustworthiness:
 
 ```markdown
 ### TIER 1: High Confidence ✓✓✓
+
 Tree-of-Thoughts: 74% vs 4% Game of 24 (Yao et al., 2023, NeurIPS, 3,004 cites)
 → Based on peer-reviewed, reproducible, high-impact source
 
 ### TIER 2: Strong Confidence ✓✓
+
 Process Reward Models: +8% over outcome-only (Chen et al., 2025)
 → Replicated across 3 independent sources; minor data gaps
 
 ### TIER 3: Moderate Confidence ✓
+
 Extended Thinking: logarithmic scaling (Anthropic, 2025b)
 → Emerging consensus; limited independent verification yet
 
 ### TIER 4: Provisional ⚠️
+
 o3 ARC-AGI 87.5% (OpenAI, December 2024)
 → Announced but not yet peer-reviewed
 ```
@@ -277,15 +290,15 @@ o3 ARC-AGI 87.5% (OpenAI, December 2024)
 
 ## Statistical Glossary (For Your Report)
 
-| Term | Definition | Example |
-|------|-----------|---------|
-| **95% CI** | Range containing true value with 95% probability | [16.1–19.7]pp means: true improvement likely between 16.1 and 19.7pp |
-| **Cohen's h** | Effect size for proportions (0.2=small, 0.5=med, 0.8=large) | h=0.40 for SC means medium effect |
-| **p-value** | Probability of result if no effect exists (p<0.05 = significant) | p<0.0001 for SC means <0.01% chance of result by random variation |
-| **I²** | % of variance due to true differences vs random error | I²=87.7% for SC means benchmarks truly differ (not just random) |
-| **Cochran's Q** | Test for heterogeneity across benchmarks | Q=24.3, p=0.0002 means significant variation |
-| **RR (Relative Risk)** | Ratio of two rates (>1 = improvement) | RR=1.32× means 32% relative improvement |
-| **SE (Standard Error)** | Measure of uncertainty in estimate | Smaller SE = more precise |
+| Term                    | Definition                                                       | Example                                                              |
+| ----------------------- | ---------------------------------------------------------------- | -------------------------------------------------------------------- |
+| **95% CI**              | Range containing true value with 95% probability                 | [16.1–19.7]pp means: true improvement likely between 16.1 and 19.7pp |
+| **Cohen's h**           | Effect size for proportions (0.2=small, 0.5=med, 0.8=large)      | h=0.40 for SC means medium effect                                    |
+| **p-value**             | Probability of result if no effect exists (p<0.05 = significant) | p<0.0001 for SC means <0.01% chance of result by random variation    |
+| **I²**                  | % of variance due to true differences vs random error            | I²=87.7% for SC means benchmarks truly differ (not just random)      |
+| **Cochran's Q**         | Test for heterogeneity across benchmarks                         | Q=24.3, p=0.0002 means significant variation                         |
+| **RR (Relative Risk)**  | Ratio of two rates (>1 = improvement)                            | RR=1.32× means 32% relative improvement                              |
+| **SE (Standard Error)** | Measure of uncertainty in estimate                               | Smaller SE = more precise                                            |
 
 ---
 
@@ -297,6 +310,7 @@ o3 ARC-AGI 87.5% (OpenAI, December 2024)
 **Claim:** [Method A] achieves [X%] on [benchmark] vs [Y%] for [Method B].
 
 **Statistical Support:**
+
 - Improvement: [+Z]pp [CI_low–CI_high]pp
 - 95% Confidence Interval accounts for n=[sample size]
 - Statistical Significance: p < [p-value]
@@ -313,6 +327,7 @@ o3 ARC-AGI 87.5% (OpenAI, December 2024)
 [Benchmark 1]: +[X]pp, [Benchmark 2]: +[Y]pp, ...
 
 **Meta-Analytic Summary:**
+
 - Pooled effect: +[Z]pp [95% CI: low–high]
 - Heterogeneity: Cochran's Q = [Q value], p = [p], I² = [I²%]
 - Interpretation: Effect varies by task; [larger on harder/easier tasks]
@@ -326,6 +341,7 @@ o3 ARC-AGI 87.5% (OpenAI, December 2024)
 **Claim:** Performance scales [linearly/logarithmically] with [compute budget].
 
 **Statistical Model:**
+
 - Regression: [Accuracy] = [a] + [b] × log([Compute])
 - R² = [R²] ([% variance explained])
 - Slope 95% CI: [[b_low]–[b_high]]
@@ -336,5 +352,5 @@ o3 ARC-AGI 87.5% (OpenAI, December 2024)
 
 ---
 
-*Last updated: 2026-01-22*
-*For use with: structured-reasoning-research-2025.md*
+_Last updated: 2026-01-22_
+_For use with: structured-reasoning-research-2025.md_

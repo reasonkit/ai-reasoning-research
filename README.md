@@ -53,12 +53,12 @@ make clean
 
 ## Key Findings
 
-| Method | Improvement | Benchmark |
-|--------|-------------|-----------|
-| Tree-of-Thoughts | 4% → 74% (+70pp) | Game of 24 |
-| Self-Consistency | +17.9pp | GSM8K |
-| Extended Thinking | +21.3pp | SWE-bench |
-| o3 (high compute) | 87.5% | ARC-AGI |
+| Method            | Improvement      | Benchmark  |
+| ----------------- | ---------------- | ---------- |
+| Tree-of-Thoughts  | 4% → 74% (+70pp) | Game of 24 |
+| Self-Consistency  | +17.9pp          | GSM8K      |
+| Extended Thinking | +21.3pp          | SWE-bench  |
+| o3 (high compute) | 87.5%            | ARC-AGI    |
 
 ## Report Quality
 
@@ -85,4 +85,4 @@ This work is licensed under [CC-BY-4.0](https://creativecommons.org/licenses/by/
 
 ---
 
-*Maintained by [ReasonKit](https://reasonkit.sh) — Turn Prompts into Protocols*
+_Maintained by [ReasonKit](https://reasonkit.sh) — Turn Prompts into Protocols_

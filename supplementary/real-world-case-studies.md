@@ -20,7 +20,7 @@ keywords:
 
 # Executive Summary
 
-While the research report "The Science of Structured Reasoning" (2026) documents academic breakthroughs achieving 18.5× improvements on Game of 24 and >4× efficiency gains on test-time compute, actual production deployments tell a more nuanced story. 
+While the research report "The Science of Structured Reasoning" (2026) documents academic breakthroughs achieving 18.5× improvements on Game of 24 and >4× efficiency gains on test-time compute, actual production deployments tell a more nuanced story.
 
 This companion report presents **three realistic, verifiable case studies** demonstrating how structured reasoning has been deployed in real-world, high-stakes environments:
 
@@ -48,14 +48,14 @@ JPMorgan Chase processes approximately **45 million transactions daily** across 
 
 ### Operational Challenge
 
-| Metric | Current Baseline |
-|--------|------------------|
-| Daily transactions flagged | 600,000–900,000 |
-| Analysts per transaction | 1–3 (multi-step review) |
-| False positive rate | 94–96% |
-| Analyst productivity | 40–60 cases/day/analyst |
-| Unreviewed backlog | 2–3 million alerts/month |
-| Compliance cost | $1.2–1.8 billion/year (industry-wide est.) |
+| Metric                     | Current Baseline                           |
+| -------------------------- | ------------------------------------------ |
+| Daily transactions flagged | 600,000–900,000                            |
+| Analysts per transaction   | 1–3 (multi-step review)                    |
+| False positive rate        | 94–96%                                     |
+| Analyst productivity       | 40–60 cases/day/analyst                    |
+| Unreviewed backlog         | 2–3 million alerts/month                   |
+| Compliance cost            | $1.2–1.8 billion/year (industry-wide est.) |
 
 The fundamental problem: **High false positive rates** waste analyst time on low-risk cases, leaving fewer resources for genuine fraud.
 
@@ -115,7 +115,7 @@ JPMorgan Chase deployed a **two-tier reasoning system** combining process and ou
 **Model:** Fine-tuned Claude 3.5 Sonnet + custom PRM  
 **Reasoning Budget:** 8,000 tokens per transaction  
 **Process Verification:** 42 learned verification rules  
-**Consensus Voting:** 5 independent chains with majority rule  
+**Consensus Voting:** 5 independent chains with majority rule
 
 ### Key Components
 
@@ -146,27 +146,27 @@ JPMorgan Chase deployed a **two-tier reasoning system** combining process and ou
 
 ### Results (Q1 2025 – 3 months full production)
 
-| Metric | Baseline | With Structured Reasoning | Improvement |
-|--------|----------|--------------------------|-------------|
-| **False Positive Rate** | 95.2% | 72.1% | -23.1pp |
-| **True Positive Detection** | 87.4% | 94.2% | +6.8pp |
-| **Analyst Productivity** | 48 cases/day | 180 cases/day | +275% |
-| **Review Backlog** | 2.1M alerts | 340K alerts | -84% |
-| **Time to Clear Alert** | 4.2 days | 0.8 days | -81% |
-| **Compliance Cost** | $1.5B/year | $0.92B/year | -$580M/year |
+| Metric                      | Baseline     | With Structured Reasoning | Improvement |
+| --------------------------- | ------------ | ------------------------- | ----------- |
+| **False Positive Rate**     | 95.2%        | 72.1%                     | -23.1pp     |
+| **True Positive Detection** | 87.4%        | 94.2%                     | +6.8pp      |
+| **Analyst Productivity**    | 48 cases/day | 180 cases/day             | +275%       |
+| **Review Backlog**          | 2.1M alerts  | 340K alerts               | -84%        |
+| **Time to Clear Alert**     | 4.2 days     | 0.8 days                  | -81%        |
+| **Compliance Cost**         | $1.5B/year   | $0.92B/year               | -$580M/year |
 
 ### Financial Impact
 
-| Category | Annual Value |
-|----------|--------------|
-| Reduced analyst hours | $180M (FTE reduction) |
+| Category                                         | Annual Value                    |
+| ------------------------------------------------ | ------------------------------- |
+| Reduced analyst hours                            | $180M (FTE reduction)           |
 | Faster capital release (cleared false positives) | $240M (reduced holding periods) |
-| Improved detection (caught fraud earlier) | $95M (reduced fraud loss) |
-| Compliance efficiency | $65M (streamlined processes) |
-| **Total Annual Benefit** | **$580M** |
-| Deployment cost (infrastructure, training, ops) | $18M (one-time) |
-| Annual operations cost | $12M |
-| **Net First-Year Benefit** | **$550M** |
+| Improved detection (caught fraud earlier)        | $95M (reduced fraud loss)       |
+| Compliance efficiency                            | $65M (streamlined processes)    |
+| **Total Annual Benefit**                         | **$580M**                       |
+| Deployment cost (infrastructure, training, ops)  | $18M (one-time)                 |
+| Annual operations cost                           | $12M                            |
+| **Net First-Year Benefit**                       | **$550M**                       |
 
 ### Risk Considerations
 
@@ -210,7 +210,7 @@ The PRM's role is critical—it prevents CoT from fabricating risk factors.
 
 ## Industry Context
 
-**Domain:** Healthcare / Clinical Decision Support  
+**Domain:** Healthcare / Clinical Decision Support
 
 **Organization:** Mayo Clinic (Rochester, Minnesota)  
 **Scale:** 69,000 employees; 70,000+ daily patient visits; 350+ locations  
@@ -222,13 +222,13 @@ Mayo Clinic serves patients with complex, rare conditions requiring coordination
 
 ### Clinical Challenge
 
-| Metric | Status |
-|--------|--------|
-| Average time to diagnosis for complex cases | 8.2 weeks |
-| Rate of "diagnostic error" findings (cases where diagnosis was initially missed) | 3.1% of cases |
-| Specialists consulted per complex case | 2.7 average |
-| Variation in differential diagnosis completeness | High (55–98% depending on specialty) |
-| Cases where additional tests avoided diagnostic delay | ~18% |
+| Metric                                                                           | Status                               |
+| -------------------------------------------------------------------------------- | ------------------------------------ |
+| Average time to diagnosis for complex cases                                      | 8.2 weeks                            |
+| Rate of "diagnostic error" findings (cases where diagnosis was initially missed) | 3.1% of cases                        |
+| Specialists consulted per complex case                                           | 2.7 average                          |
+| Variation in differential diagnosis completeness                                 | High (55–98% depending on specialty) |
+| Cases where additional tests avoided diagnostic delay                            | ~18%                                 |
 
 The fundamental problem: **Cognitive bias and incomplete differential generation** lead to diagnostic delays or misses, even with experienced physicians.
 
@@ -320,24 +320,24 @@ Mayo Clinic deployed **Self-Consistency Chain-of-Thought** for differential diag
 
 ### Results (Q2 2025 – 6 months full deployment)
 
-| Metric | Baseline | With AI-Assisted Reasoning | Improvement |
-|--------|----------|---------------------------|-------------|
-| **Diagnostic Accuracy (Complex Cases)** | 93.2% | 97.8% | +4.6pp |
-| **Time to Diagnosis** | 8.2 days | 4.1 days | -50% |
-| **Diagnostic Error Rate** | 3.1% | 1.2% | -61% |
-| **Unnecessary Tests Ordered** | 18.2% | 11.4% | -37% |
-| **Specialist Consultations** | 2.7 avg | 1.9 avg | -30% |
-| **Patient Satisfaction with Diagnosis Communication** | 82% | 91% | +9pp |
+| Metric                                                | Baseline | With AI-Assisted Reasoning | Improvement |
+| ----------------------------------------------------- | -------- | -------------------------- | ----------- |
+| **Diagnostic Accuracy (Complex Cases)**               | 93.2%    | 97.8%                      | +4.6pp      |
+| **Time to Diagnosis**                                 | 8.2 days | 4.1 days                   | -50%        |
+| **Diagnostic Error Rate**                             | 3.1%     | 1.2%                       | -61%        |
+| **Unnecessary Tests Ordered**                         | 18.2%    | 11.4%                      | -37%        |
+| **Specialist Consultations**                          | 2.7 avg  | 1.9 avg                    | -30%        |
+| **Patient Satisfaction with Diagnosis Communication** | 82%      | 91%                        | +9pp        |
 
 ### Clinical Impact
 
-| Category | Quantified Benefit |
-|----------|-------------------|
-| Diagnostic errors avoided per year | ~180 cases (prevented harm) |
-| Days of unnecessary treatment avoided | 8,400 patient-days/year |
-| Reduced specialist consultation costs | $2.1M/year |
-| Earlier detection of serious conditions | ~95 cases caught earlier |
-| Patient harm events prevented | ~12–18 cases/year (estimated) |
+| Category                                | Quantified Benefit            |
+| --------------------------------------- | ----------------------------- |
+| Diagnostic errors avoided per year      | ~180 cases (prevented harm)   |
+| Days of unnecessary treatment avoided   | 8,400 patient-days/year       |
+| Reduced specialist consultation costs   | $2.1M/year                    |
+| Earlier detection of serious conditions | ~95 cases caught earlier      |
+| Patient harm events prevented           | ~12–18 cases/year (estimated) |
 
 ### Quality Metrics
 
@@ -378,7 +378,7 @@ Mayo Clinic deployed **Self-Consistency Chain-of-Thought** for differential diag
 
 ## Industry Context
 
-**Domain:** Software Engineering / DevOps  
+**Domain:** Software Engineering / DevOps
 
 **Organization:** GitLab Inc. (Series G, $11B valuation)  
 **Scale:** 1,900+ employees; 30 million registered users; 200M+ repositories  
@@ -395,14 +395,14 @@ Code review is a critical quality gate but creates a development bottleneck. Sen
 
 ### Development Challenge
 
-| Metric | Current State |
-|--------|---------------|
-| Median time to code review response | 18 hours |
-| Median merge time after approval | 2.1 hours |
-| PRs awaiting review | 12,000+ open at any time |
-| Common review comments | 60% are style/formatting (automatable) |
-| Security issues caught in review | 24% (should be caught before review) |
-| Junior engineer review quality | 68% of senior's effectiveness |
+| Metric                              | Current State                          |
+| ----------------------------------- | -------------------------------------- |
+| Median time to code review response | 18 hours                               |
+| Median merge time after approval    | 2.1 hours                              |
+| PRs awaiting review                 | 12,000+ open at any time               |
+| Common review comments              | 60% are style/formatting (automatable) |
+| Security issues caught in review    | 24% (should be caught before review)   |
+| Junior engineer review quality      | 68% of senior's effectiveness          |
 
 The fundamental problem: **Code review quality varies by reviewer expertise**, and senior engineers are bottlenecked on repetitive tasks.
 
@@ -466,7 +466,7 @@ GitLab deployed a **Tree-of-Thoughts reasoning system** to autonomously analyze 
 **Context Window:** Full PR diff + 5,000 lines of surrounding code  
 **Search Breadth:** 5 parallel analysis branches  
 **Search Depth:** 3–4 levels (contextual pruning)  
-**Execution Time:** 8–12 seconds per PR  
+**Execution Time:** 8–12 seconds per PR
 
 ### Key Components
 
@@ -499,37 +499,37 @@ GitLab deployed a **Tree-of-Thoughts reasoning system** to autonomously analyze 
 
 ### Results (Q1 2025 – 3 months post-GA)
 
-| Metric | Baseline | With AI Review Assist | Improvement |
-|--------|----------|----------------------|-------------|
-| **Median Time to First Review** | 18 hours | 1.2 hours | -93% |
-| **Median Merge Time** | 2.1 hours | 0.6 hours | -71% |
-| **PR Cycle Time** | 24–72 hours | 6–18 hours | -70% |
-| **Critical Issues Caught** | 24% in review | 67% before review | +43pp |
-| **Junior Reviewer Effectiveness** | 68% of senior | 84% of senior | +16pp |
-| **Style/Lint Issues in Review** | 60% of comments | 8% of comments | -52pp |
-| **Developer Satisfaction** | 6.2/10 | 8.1/10 | +1.9 points |
+| Metric                            | Baseline        | With AI Review Assist | Improvement |
+| --------------------------------- | --------------- | --------------------- | ----------- |
+| **Median Time to First Review**   | 18 hours        | 1.2 hours             | -93%        |
+| **Median Merge Time**             | 2.1 hours       | 0.6 hours             | -71%        |
+| **PR Cycle Time**                 | 24–72 hours     | 6–18 hours            | -70%        |
+| **Critical Issues Caught**        | 24% in review   | 67% before review     | +43pp       |
+| **Junior Reviewer Effectiveness** | 68% of senior   | 84% of senior         | +16pp       |
+| **Style/Lint Issues in Review**   | 60% of comments | 8% of comments        | -52pp       |
+| **Developer Satisfaction**        | 6.2/10          | 8.1/10                | +1.9 points |
 
 ### Developer Impact
 
-| Role | Change |
-|------|--------|
-| **Senior Engineers** | 30% less time on routine reviews; 15% increase in complex code analysis |
-| **Junior Engineers** | Better feedback quality; 40% improvement in security awareness |
-| **DevOps Teams** | Faster deployment cycles; 25% reduction in post-deploy incidents |
-| **Security Team** | 80% of security issues caught before review; proactive instead of reactive |
+| Role                 | Change                                                                     |
+| -------------------- | -------------------------------------------------------------------------- |
+| **Senior Engineers** | 30% less time on routine reviews; 15% increase in complex code analysis    |
+| **Junior Engineers** | Better feedback quality; 40% improvement in security awareness             |
+| **DevOps Teams**     | Faster deployment cycles; 25% reduction in post-deploy incidents           |
+| **Security Team**    | 80% of security issues caught before review; proactive instead of reactive |
 
 ### Business Impact
 
-| Category | Annual Value |
-|----------|--------------|
-| Reduced code review time (FTE savings) | $4.2M |
+| Category                                     | Annual Value                  |
+| -------------------------------------------- | ----------------------------- |
+| Reduced code review time (FTE savings)       | $4.2M                         |
 | Faster feature delivery (reduced cycle time) | $1.8M (market responsiveness) |
-| Fewer post-production security incidents | $2.1M (reduced incident cost) |
-| Improved developer experience (retention) | $1.5M (reduced attrition) |
-| **Total Annual Benefit** | **$9.6M** |
-| Implementation cost | $0.6M (one-time) |
-| Operations cost | $0.4M/year |
-| **Net First-Year Benefit** | **$8.6M** |
+| Fewer post-production security incidents     | $2.1M (reduced incident cost) |
+| Improved developer experience (retention)    | $1.5M (reduced attrition)     |
+| **Total Annual Benefit**                     | **$9.6M**                     |
+| Implementation cost                          | $0.6M (one-time)              |
+| Operations cost                              | $0.4M/year                    |
+| **Net First-Year Benefit**                   | **$8.6M**                     |
 
 ### Quality Metrics
 
@@ -570,13 +570,13 @@ GitLab deployed a **Tree-of-Thoughts reasoning system** to autonomously analyze 
 
 ## Structured Reasoning Techniques Deployed
 
-| Technique | Finance (JPMorgan) | Healthcare (Mayo) | Engineering (GitLab) |
-|-----------|-------------------|------------------|----------------------|
-| **Chain-of-Thought** | ✓ (5-step reasoning) | ✓ (diagnosis decomposition) | ✓ (domain analysis) |
-| **Self-Consistency** | ✓ (5-chain voting) | ✓ (7-chain voting) | ✗ (not used) |
-| **Tree-of-Thoughts** | ✗ (not used) | ✗ (not used) | ✓ (parallel branches) |
-| **Process Reward Models** | ✓ (verification layer) | ✗ (not used) | ✗ (confidence scores) |
-| **Extended Thinking** | ✗ (latency constraints) | ✗ (clinical real-time) | Partial (async) |
+| Technique                 | Finance (JPMorgan)      | Healthcare (Mayo)           | Engineering (GitLab)  |
+| ------------------------- | ----------------------- | --------------------------- | --------------------- |
+| **Chain-of-Thought**      | ✓ (5-step reasoning)    | ✓ (diagnosis decomposition) | ✓ (domain analysis)   |
+| **Self-Consistency**      | ✓ (5-chain voting)      | ✓ (7-chain voting)          | ✗ (not used)          |
+| **Tree-of-Thoughts**      | ✗ (not used)            | ✗ (not used)                | ✓ (parallel branches) |
+| **Process Reward Models** | ✓ (verification layer)  | ✗ (not used)                | ✗ (confidence scores) |
+| **Extended Thinking**     | ✗ (latency constraints) | ✗ (clinical real-time)      | Partial (async)       |
 
 ## Key Success Factors
 
@@ -622,23 +622,23 @@ GitLab deployed a **Tree-of-Thoughts reasoning system** to autonomously analyze 
 
 ## Cost-Benefit Summary
 
-| Deployment | Annual Benefit | Annual Cost | ROI | Payback Period |
-|------------|--------|-----------|-----|---|
-| **JPMorgan (AML)** | $580M | $12M | 48.3× | <1 week |
-| **Mayo Clinic** | ~$4.8M* | $0.8M | 6.0× | 10 weeks |
-| **GitLab (Code Review)** | $9.6M | $0.4M | 24.0× | 2 weeks |
+| Deployment               | Annual Benefit | Annual Cost | ROI   | Payback Period |
+| ------------------------ | -------------- | ----------- | ----- | -------------- |
+| **JPMorgan (AML)**       | $580M          | $12M        | 48.3× | <1 week        |
+| **Mayo Clinic**          | ~$4.8M\*       | $0.8M       | 6.0×  | 10 weeks       |
+| **GitLab (Code Review)** | $9.6M          | $0.4M       | 24.0× | 2 weeks        |
 
-*Estimated; Mayo Clinic hasn't disclosed specific figures publicly
+\*Estimated; Mayo Clinic hasn't disclosed specific figures publicly
 
 ### Implementation Considerations
 
-| Factor | Finance | Healthcare | Engineering |
-|--------|---------|-----------|-------------|
-| **Implementation Time** | 8 months | 12 months | 6 months |
-| **Training Data Required** | 50K labeled cases | 50K+ cases | 500K+ examples |
-| **Regulatory Approval** | Required | Required | Not required |
-| **Liability Risk** | Moderate | High | Low |
-| **User Adoption** | Medium (analysts) | High (physicians) | Very high (developers) |
+| Factor                     | Finance           | Healthcare        | Engineering            |
+| -------------------------- | ----------------- | ----------------- | ---------------------- |
+| **Implementation Time**    | 8 months          | 12 months         | 6 months               |
+| **Training Data Required** | 50K labeled cases | 50K+ cases        | 500K+ examples         |
+| **Regulatory Approval**    | Required          | Required          | Not required           |
+| **Liability Risk**         | Moderate          | High              | Low                    |
+| **User Adoption**          | Medium (analysts) | High (physicians) | Very high (developers) |
 
 ---
 
@@ -697,7 +697,7 @@ Based on these three case studies, a framework emerges for structured reasoning 
 **Phase 2 (Weeks 5–12):** Model fine-tuning and validation  
 **Phase 3 (Weeks 13–20):** Pilot deployment (5–10% of volume)  
 **Phase 4 (Weeks 21–32):** Gradual rollout with monitoring  
-**Phase 5 (Weeks 33+):** Full production; continuous optimization  
+**Phase 5 (Weeks 33+):** Full production; continuous optimization
 
 ---
 
@@ -751,16 +751,19 @@ The next frontier is **generalization across domains** and **efficiency optimiza
 **Case Study Sources (Hypothetical)**
 
 Financial Services:
+
 - JPMorgan Chase Q1 2025 Earnings Report (SEC Filing)
 - Compliance Week Magazine (May 2025 edition)
 - Goldman Sachs Equity Research (2025)
 
 Healthcare:
+
 - Mayo Clinic Internal Case Studies (provided to researchers under confidentiality agreement)
 - Health Affairs Journal (July 2025 publication)
 - Medpage Today (August 2025 article)
 
 Software Engineering:
+
 - GitLab Blog & Transparency Reports
 - IEEE Software Engineering Journal (June 2025)
 - Developer community feedback (Hacker News, Reddit, GitHub Discussions)
@@ -779,4 +782,3 @@ They are intended to bridge the gap between academic research and real-world pra
 
 **License:** CC-BY-4.0  
 **Citation:** ReasonKit. (2026). Real-World Case Studies: Structured Reasoning in Production. January 2026.
-

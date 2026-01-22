@@ -25,9 +25,11 @@ You provided 5 quantitative claims lacking statistical significance testing:
 ### 3 New Resource Documents (Total: 55 KB)
 
 #### Document 1: STATISTICAL_VALIDITY_RECOMMENDATIONS.md (31 KB)
+
 **The complete reference guide for statistical testing**
 
 Contains:
+
 - **Part 1:** 5 claim types + appropriate statistical tests
   - Claim Type 1: Single benchmark (McNemar, 2-prop Z, Fisher's Exact)
   - Claim Type 2: Multi-benchmark (Meta-analysis, Cochran's Q, I²)
@@ -67,9 +69,11 @@ Contains:
 ---
 
 #### Document 2: STATISTICAL_TESTS_QUICK_REFERENCE.md (15 KB)
+
 **The practical guide for quick lookups**
 
 Contains:
+
 - **Visual summary** of your 5 claim types (colorized boxes)
 - **Effect size reference** with your actual claims
   - Your ToT: h=1.58 (LARGE/ENORMOUS)
@@ -99,9 +103,11 @@ Contains:
 ---
 
 #### Document 3: IMPLEMENTATION_CHECKLIST.md (16 KB)
+
 **The step-by-step action plan (4–6 hours)**
 
 Contains:
+
 - **Phase 1 (30 min):** Planning & claims inventory
 - **Phase 2 (1.5 hrs):** Extract sample sizes from source papers
 - **Phase 3 (45 min):** Calculate CIs and effect sizes
@@ -114,6 +120,7 @@ Contains:
 All with checkboxes for tracking progress.
 
 **Deliverables checklist:**
+
 - NEW: STATISTICAL_VALIDITY_RECOMMENDATIONS.md ✓
 - NEW: STATISTICAL_TESTS_QUICK_REFERENCE.md ✓
 - UPDATED: structured-reasoning-research-2025.md (with new section)
@@ -125,19 +132,20 @@ All with checkboxes for tracking progress.
 
 ### 1. Which Statistical Tests to Use
 
-| Your Claim | Test | Output |
-|-----------|------|--------|
-| ToT 74% vs 4% | Two-proportion Z | p-value + 95% CI |
-| SC [+17.9, +7.9, +6.7, +5.1]pp | Meta-analysis | Pooled effect + I² (heterogeneity) |
-| Extended thinking curve | Power-law regression | Slope + R² + CI on slope |
-| o3 vs. Gemini vs. Claude | Ordinal ranking ONLY | No statistical test (too many confounds) |
-| >4× efficiency | Ratio test | "4× [95% CI: 3.2×–4.8×]" not ">4×" |
+| Your Claim                     | Test                 | Output                                   |
+| ------------------------------ | -------------------- | ---------------------------------------- |
+| ToT 74% vs 4%                  | Two-proportion Z     | p-value + 95% CI                         |
+| SC [+17.9, +7.9, +6.7, +5.1]pp | Meta-analysis        | Pooled effect + I² (heterogeneity)       |
+| Extended thinking curve        | Power-law regression | Slope + R² + CI on slope                 |
+| o3 vs. Gemini vs. Claude       | Ordinal ranking ONLY | No statistical test (too many confounds) |
+| >4× efficiency                 | Ratio test           | "4× [95% CI: 3.2×–4.8×]" not ">4×"       |
 
 ---
 
 ### 2. How to Present Confidence Intervals
 
 **Format 1: Percentage points (most common)**
+
 ```
 Self-Consistency on GSM8K: 56.5% → 74.4%
 Improvement: +17.9pp [16.1–19.7]pp, p < 0.0001
@@ -145,6 +153,7 @@ Effect size (Cohen's h): 0.40 (medium)
 ```
 
 **Format 2: Ratios (for large improvements)**
+
 ```
 Tree-of-Thoughts: 4% → 74%
 Improvement: 18.5× [8.6×–39.4×]
@@ -152,6 +161,7 @@ Effect size (Cohen's h): 1.58 (large)
 ```
 
 **Format 3: Model rankings (NO statistical test)**
+
 ```
 Frontier Models (2025):
 1st: o3 (87.5% ARC-AGI, high compute)
@@ -165,12 +175,12 @@ Frontier Models (2025):
 
 Your improvements have VASTLY different effect sizes:
 
-| Method | Improvement | Cohen's h | Interpretation |
-|--------|-------------|-----------|-----------------|
-| **Tree-of-Thoughts** | +70pp | 1.58 | ENORMOUS (transforms task viability) |
-| **Self-Consistency** | +17.9pp | 0.40 | MEDIUM (good, but not transformative) |
-| **Extended Thinking** | +21pp | 0.44 | MEDIUM-TO-LARGE |
-| **o3 (high compute)** | +82.5pp | 1.52 | ENORMOUS |
+| Method                | Improvement | Cohen's h | Interpretation                        |
+| --------------------- | ----------- | --------- | ------------------------------------- |
+| **Tree-of-Thoughts**  | +70pp       | 1.58      | ENORMOUS (transforms task viability)  |
+| **Self-Consistency**  | +17.9pp     | 0.40      | MEDIUM (good, but not transformative) |
+| **Extended Thinking** | +21pp       | 0.44      | MEDIUM-TO-LARGE                       |
+| **o3 (high compute)** | +82.5pp     | 1.52      | ENORMOUS                              |
 
 **Key insight:** Don't just report raw percentages. Context matters. A 17.9pp improvement is respectable (medium effect), but not as earth-shattering as the absolute number suggests.
 
@@ -178,13 +188,13 @@ Your improvements have VASTLY different effect sizes:
 
 ### 4. What's Missing (Data Gaps)
 
-| Claim | Gap | Severity | Fix |
-|-------|-----|----------|-----|
-| **ToT Game of 24** | No SE/CI in source | MEDIUM | Report [62–78]pp CI (shows wider uncertainty with n=100) |
-| **Self-Consistency** | No heterogeneity analysis | MEDIUM | Add I²=87.7%, Q-test significant (explains variation) |
-| **Extended Thinking** | SWE-bench n unknown | HIGH | Request from Anthropic or mark "provisional" |
-| **o3 High Compute** | 172× is non-standard | HIGH | Separate from standard compute (75.7%), explain difference |
-| **Efficiency >4×** | Definition unclear | MEDIUM | Define precisely: which is cheaper? Compare in same units |
+| Claim                 | Gap                       | Severity | Fix                                                        |
+| --------------------- | ------------------------- | -------- | ---------------------------------------------------------- |
+| **ToT Game of 24**    | No SE/CI in source        | MEDIUM   | Report [62–78]pp CI (shows wider uncertainty with n=100)   |
+| **Self-Consistency**  | No heterogeneity analysis | MEDIUM   | Add I²=87.7%, Q-test significant (explains variation)      |
+| **Extended Thinking** | SWE-bench n unknown       | HIGH     | Request from Anthropic or mark "provisional"               |
+| **o3 High Compute**   | 172× is non-standard      | HIGH     | Separate from standard compute (75.7%), explain difference |
+| **Efficiency >4×**    | Definition unclear        | MEDIUM   | Define precisely: which is cheaper? Compare in same units  |
 
 ---
 
@@ -317,6 +327,7 @@ This file (README_STATISTICAL_RESOURCES.md) — Overview & quick start
 
 **Q: Do I need to use all the statistical tests?**
 A: No. Prioritize by claim importance:
+
 - Tree-of-Thoughts (major claim) → Full CI + effect size
 - Self-Consistency (repeated across benchmarks) → Add heterogeneity (I²)
 - Extended Thinking (vendor-reported) → Mark as "provisional", note n unknown

@@ -103,23 +103,27 @@ print(f"Improvement: {diff:.3f} [{ci_lo:.3f}, {ci_hi:.3f}]")
 **Your CI calculations:**
 
 - [ ] Tree-of-Thoughts Game of 24: [Compute and enter]
+
   ```
   Baseline: 4%, New: 74%, n=100 (assumed)
   Expected CI: [62–78]pp or [8.6×–39.4×]
   ```
 
 - [ ] Self-Consistency GSM8K: [Already computed above]
+
   ```
   CI: [16.1–19.7]pp ✓
   ```
 
 - [ ] Self-Consistency SVAMP:
+
   ```
   Baseline: 78.7%, New: 86.6%, n≈1000
   Expected CI: [5.8–10.0]pp
   ```
 
 - [ ] Extended Thinking SWE-bench: [n unknown—skip for now, mark as provisional]
+
   ```
   Baseline: 49%, New: 70.3%, n=unknown
   Flag: Add note "Sample size not disclosed; 95% CI unavailable"
@@ -167,6 +171,7 @@ for name, (p1, p2) in claims.items():
 ```
 
 **Expected output:**
+
 ```
 ToT Game of 24                : h=1.582 (large       ), RR=18.50×
 SC GSM8K                      : h=0.396 (small-medium), RR=1.32×
@@ -196,21 +201,23 @@ o3 ARC-AGI                    : h=1.518 (large       ), RR=17.50×
 For each major quantitative claim in your report:
 
 **BEFORE:**
+
 ```markdown
-| Method | Baseline | Success Rate | Relative Improvement |
-|--------|----------|--------------|----------------------|
-| Tree of Thoughts (b=5) | 7.3% | **74.0%** | **+66.7pp (10.1x)** |
+| Method                 | Baseline | Success Rate | Relative Improvement |
+| ---------------------- | -------- | ------------ | -------------------- |
+| Tree of Thoughts (b=5) | 7.3%     | **74.0%**    | **+66.7pp (10.1x)**  |
 ```
 
 **AFTER:**
-```markdown
-| Method | Baseline | Success Rate | Relative Improvement | 95% CI |
-|--------|----------|--------------|----------------------|---------|
-| Tree of Thoughts (b=5) | 7.3% | **74.0%** | **+66.7pp (10.1×)** | [62–78]pp |
 
-*Note: Improvement is statistically significant (p < 0.0001, Cohen's h = 1.58, large effect).
+```markdown
+| Method                 | Baseline | Success Rate | Relative Improvement | 95% CI    |
+| ---------------------- | -------- | ------------ | -------------------- | --------- |
+| Tree of Thoughts (b=5) | 7.3%     | **74.0%**    | **+66.7pp (10.1×)**  | [62–78]pp |
+
+_Note: Improvement is statistically significant (p < 0.0001, Cohen's h = 1.58, large effect).
 Confidence interval based on n=100 examples per method. Task-specific result; gains vary
-significantly across benchmarks.*
+significantly across benchmarks._
 ```
 
 - [ ] **Update Table 1** (Key Findings) with CIs for all claims
@@ -228,15 +235,19 @@ Scan your entire report and label each major claim:
 
 ```markdown
 ### TIER 1: High Confidence ✓✓✓
+
 Tree-of-Thoughts... (Yao et al., 2023, NeurIPS Oral, 3,004 citations)
 
 ### TIER 2: Strong Confidence ✓✓
+
 Self-Consistency... (Wang et al., 2023, ICLR, 4,129 citations)
 
 ### TIER 3: Moderate Confidence ✓
+
 Extended Thinking... (Anthropic, 2025b; n unknown, vendor-reported)
 
 ### TIER 4: Provisional ⚠️
+
 o3 ARC-AGI 87.5%... (OpenAI, December 2024; not peer-reviewed)
 ```
 
@@ -250,15 +261,20 @@ o3 ARC-AGI 87.5%... (OpenAI, December 2024; not peer-reviewed)
 **Current problem:** Your report may conflate o1 (September 2024) and o3 (December 2024)
 
 **Fix:**
+
 - [ ] Search report for "o1", "o3", "OpenAI reasoning"
 - [ ] Separate into two subsections:
+
   ```markdown
   ## OpenAI o1 (September 2024)
+
   [o1-specific claims and benchmarks]
 
   ## OpenAI o3 (December 2024)
+
   [o3-specific claims and benchmarks, NOTE: high compute mode]
   ```
+
 - [ ] Clarify: o3 87.5% is HIGH compute (172×), not standard
 
 ### Step E: Add Heterogeneity Assessment for Multi-Benchmark Claims
@@ -266,17 +282,19 @@ o3 ARC-AGI 87.5%... (OpenAI, December 2024; not peer-reviewed)
 For Self-Consistency section:
 
 - [ ] **Add Cochran's Q and I² to the analysis**
+
   ```markdown
   ### Meta-Analytic Summary
 
-  | Benchmark | n | Improvement | 95% CI |
-  |-----------|---|------------|--------|
-  | GSM8K | 1,319 | +17.9pp | [16.1, 19.7] |
-  | SVAMP | 1,000 | +7.9pp | [5.8, 10.0] |
-  | AQuA | 254 | +6.7pp | [2.1, 11.3] |
-  | MultiArith | 1,000 | +5.1pp | [2.3, 7.9] |
+  | Benchmark  | n     | Improvement | 95% CI       |
+  | ---------- | ----- | ----------- | ------------ |
+  | GSM8K      | 1,319 | +17.9pp     | [16.1, 19.7] |
+  | SVAMP      | 1,000 | +7.9pp      | [5.8, 10.0]  |
+  | AQuA       | 254   | +6.7pp      | [2.1, 11.3]  |
+  | MultiArith | 1,000 | +5.1pp      | [2.3, 7.9]   |
 
   **Heterogeneity Analysis:**
+
   - Cochran's Q = 24.3, df = 3, p = 0.0002 (significant)
   - I² = 87.7% (substantial heterogeneity)
 
@@ -307,6 +325,7 @@ If you have a benchmark comparison figure:
 ### Step B: Update References
 
 - [ ] **Add statistical methods citations** to your References section:
+
   ```bibtex
   @book{higgins2011,
     title={Cochrane Handbook for Systematic Reviews of Interventions},
@@ -367,11 +386,12 @@ If you have a benchmark comparison figure:
 ## PHASE 7: Integration with Existing Documents (15 minutes)
 
 - [ ] **Update CLAIMS_REGISTER.md** with confidence levels:
+
   ```markdown
-  | Claim | Tier | CI | SE Reported | N/A |
-  |-------|------|-----|-----------|-----|
-  | ToT 74% | 1 | [62–78]pp | No | 100 |
-  | SC +17.9pp | 1 | [16.1–19.7]pp | Partial | 1,319 |
+  | Claim      | Tier | CI            | SE Reported | N/A   |
+  | ---------- | ---- | ------------- | ----------- | ----- |
+  | ToT 74%    | 1    | [62–78]pp     | No          | 100   |
+  | SC +17.9pp | 1    | [16.1–19.7]pp | Partial     | 1,319 |
   ```
 
 - [ ] **Link from STATISTICAL_VALIDITY_RECOMMENDATIONS.md** to main report
@@ -395,16 +415,20 @@ If you have a benchmark comparison figure:
   - Create meta-analysis forest plot (if using multiple benchmarks)
 
 - [ ] **Prepare statistical methods appendix:**
+
   ```markdown
   ## Appendix D: Statistical Methods Details
 
   ### Two-Proportion Z-Test
+
   [Mathematical formula, assumptions, interpretation]
 
   ### Meta-Analysis (Fixed vs. Random Effects)
+
   [When to use each, Cochran's Q, I² heterogeneity]
 
   ### Power Analysis
+
   [Was sample size sufficient for detected effect sizes?]
   ```
 
@@ -415,11 +439,13 @@ If you have a benchmark comparison figure:
 After completing all phases, your report will have:
 
 ### NEW DOCUMENTS (in /research/drafts/):
+
 - [ ] `STATISTICAL_VALIDITY_RECOMMENDATIONS.md` (12 KB, Part 1–6)
 - [ ] `STATISTICAL_TESTS_QUICK_REFERENCE.md` (8 KB, checklists & templates)
 - [ ] `IMPLEMENTATION_CHECKLIST.md` (THIS FILE, 6 KB)
 
 ### UPDATED DOCUMENTS:
+
 - [ ] `structured-reasoning-research-2025.md` (Main report)
   - New "Statistical Validity and Confidence Assessment" section
   - Updated tables with 95% CIs
@@ -433,6 +459,7 @@ After completing all phases, your report will have:
   - Marked provisional/pending claims
 
 ### STATISTICS SUMMARY TABLE (for report):
+
 ```
 | Claim | Type | Test | Tier | CI | Effect Size |
 |-------|------|------|------|-----|-------------|
@@ -462,18 +489,18 @@ Before publishing the updated report:
 
 ## Time Estimate Breakdown
 
-| Phase | Task | Time |
-|-------|------|------|
-| 1 | Planning & Audit | 30 min |
-| 2 | CI Calculations | 90 min |
-| 3 | Effect Sizes | 45 min |
-| 4 | Content Updates | 120 min |
-| 5 | Viz & References | 45 min |
-| 6 | Review & QA | 30 min |
-| 7 | Integration | 15 min |
-| 8 | Enhancements (optional) | 60+ min |
-| **TOTAL** | **Core Implementation** | **~4.5 hours** |
-| | **With Enhancements** | **~5.5+ hours** |
+| Phase     | Task                    | Time            |
+| --------- | ----------------------- | --------------- |
+| 1         | Planning & Audit        | 30 min          |
+| 2         | CI Calculations         | 90 min          |
+| 3         | Effect Sizes            | 45 min          |
+| 4         | Content Updates         | 120 min         |
+| 5         | Viz & References        | 45 min          |
+| 6         | Review & QA             | 30 min          |
+| 7         | Integration             | 15 min          |
+| 8         | Enhancements (optional) | 60+ min         |
+| **TOTAL** | **Core Implementation** | **~4.5 hours**  |
+|           | **With Enhancements**   | **~5.5+ hours** |
 
 ---
 
@@ -501,6 +528,6 @@ Before publishing the updated report:
 
 ---
 
-*Good luck with the implementation! The effort will significantly strengthen your report's credibility and impact.*
+_Good luck with the implementation! The effort will significantly strengthen your report's credibility and impact._
 
-*Questions? Refer back to STATISTICAL_VALIDITY_RECOMMENDATIONS.md (Parts 1–4) for detailed guidance.*
+_Questions? Refer back to STATISTICAL_VALIDITY_RECOMMENDATIONS.md (Parts 1–4) for detailed guidance._
