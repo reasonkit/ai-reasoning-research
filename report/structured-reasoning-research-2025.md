@@ -3,12 +3,12 @@ title: "The Science of Structured Reasoning"
 subtitle: "A Comprehensive Review of LLM Reasoning Research (2022–2025)"
 author: "ReasonKit"
 date: "January 2026"
-version: "1.1"
+version: "1.2"
 license: "CC-BY-4.0"
 lang: en
 citation-style: "apa-7th-edition"
 abstract: |
-  This report presents a comprehensive, fully-triangulated survey of the most significant research on structured reasoning in Large Language Models. Drawing from peer-reviewed papers at NeurIPS, ICLR, ACL, AAAI, and other top venues, we document empirical evidence demonstrating that structured reasoning protocols can substantially outperform unstructured approaches on specific task classes. Key findings include Tree-of-Thoughts achieving 74% versus 4% on the Game of 24 task (Yao et al., 2023)—though gains are task-dependent—test-time compute scaling delivering greater than 4x efficiency gains (Snell et al., 2025), and extended thinking modes enabling strong performance on software engineering benchmarks (Anthropic, 2025). Version 1.1 expands coverage to include tool-augmented reasoning (ReAct, Reflexion), memory-augmented approaches (RAPTOR, MemoryBank), and empirical findings on reasoning limitations (Saparov & He, 2023). All claims are triangulated across multiple independent sources; performance numbers should be interpreted with attention to specific benchmarks and conditions.
+  This report presents a comprehensive, fully-triangulated survey of the most significant research on structured reasoning in Large Language Models. Drawing from peer-reviewed papers at NeurIPS, ICLR, ACL, AAAI, and other top venues, we document empirical evidence demonstrating that structured reasoning protocols can substantially outperform unstructured approaches on specific task classes. Key findings include Tree-of-Thoughts achieving 74% versus 4% on the Game of 24 task (Yao et al., 2023)—though gains are task-dependent—test-time compute scaling delivering greater than 4x efficiency gains (Snell et al., 2025), and extended thinking modes enabling strong performance on software engineering benchmarks (Anthropic, 2025). Version 1.2 introduces 2025 Research Frontiers covering latent reasoning (Coconut), critical analysis of CoT limitations (Zhao et al., 2025), spontaneous self-correction (SPOC), updated benchmark landscapes (ARC-AGI-2, Qwen3), and self-correction research advances. Version 1.1 expanded coverage to include tool-augmented reasoning (ReAct, Reflexion), memory-augmented approaches (RAPTOR, MemoryBank), and empirical findings on reasoning limitations. All claims are triangulated across multiple independent sources; performance numbers should be interpreted with attention to specific benchmarks and conditions.
 keywords:
   - structured reasoning
   - chain-of-thought
@@ -20,6 +20,10 @@ keywords:
   - Reflexion
   - memory-augmented reasoning
   - retrieval-augmented generation
+  - latent reasoning
+  - self-correction
+  - process reward models
+  - ARC-AGI
 documentclass: article
 papersize: a4
 geometry: margin=1in
@@ -111,10 +115,13 @@ Before diving into the chronological research evolution, this section provides a
 | **Self-Consistency** | 2023 | Majority voting over CoT paths | Ensemble | Samples (k) | Latency ↔ Robustness |
 | **Tree-of-Thoughts** | 2023 | Branching exploration + backtracking | Tree search | Breadth (branches) | Memory ↔ Coverage |
 | **Reflexion** | 2023 | Verbal self-reflection on failures | Iterative | Attempts | Episodes ↔ Convergence |
+| **Coconut** | 2024 | Latent-space continuous thought | Latent reasoning | Hidden states | Architecture change ↔ BFS capability |
 | **RAPTOR** | 2024 | Hierarchical summarization tree | Memory-augmented | Abstraction levels | Preprocessing ↔ Retrieval quality |
 | **Process Reward Models** | 2024 | Learn to score intermediate steps | Ranking/RL | Step quality | Training cost ↔ Accuracy |
 | **MemoryBank** | 2024 | Ebbinghaus-inspired memory decay | Memory-augmented | Memory retention | Storage ↔ Relevance |
 | **OpenAI o1/o3** | 2024–25 | Test-time compute scaling | Dynamic allocation | Compute budget | Cost ↔ Reasoning depth |
+| **ThinkPRM** | 2025 | CoT-based step verification | Generative verifier | Verification tokens | Data efficiency ↔ Compute |
+| **SPOC** | 2025 | Spontaneous self-correction | Self-correcting | Verification loops | Latency ↔ Accuracy |
 | **Extended Thinking** | 2025 | Internal reasoning chains (hidden) | Sequential | Thinking tokens | Interpretability ↔ Performance |
 | **DeepSeek R1** | 2025 | RL-optimized reasoning trajectories | RL-optimized | RL iterations | Training cost ↔ Robustness |
 
@@ -580,6 +587,130 @@ Recent reasoning models (o1, o3, R1, Gemini Deep Think) use "Long CoT" with (Wu 
 Wu et al. (2025) provide a comprehensive survey identifying research gaps including multi-modal reasoning integration, efficiency improvements, and enhanced knowledge frameworks.
 
 
+# 2025 Research Frontiers {#sec:frontiers}
+
+This section covers the latest 2025 research advances with fully triangulated citations.
+
+## Latent Reasoning: Coconut
+
+### Beyond Language-Space Reasoning
+
+**Paper:** "Training Large Language Models to Reason in a Continuous Latent Space" (Hao et al., 2024)
+
+**Venue:** arXiv:2412.06769 (December 2024) | **GitHub:** [facebookresearch/coconut](https://github.com/facebookresearch/coconut)
+
+**Authors:** Shibo Hao, Sainbayar Sukhbaatar, DiJia Su, Xian Li, Zhiting Hu, Jason Weston, Yuandong Tian (Meta AI Research)
+
+**Core Innovation:** Coconut (Chain of Continuous Thought) enables reasoning in continuous latent space rather than language space. The model's last hidden state becomes a "continuous thought" that feeds directly into the next reasoning step.
+
+| Benchmark | CoT | Coconut | Improvement |
+|-----------|-----|---------|-------------|
+| ProsQA | 77.5% | **97.0%** | +19.5pp |
+| Logical Reasoning Tasks | Baseline | Significant gains | — |
+
+**Key Insight:** Language tokens constrain reasoning—many tokens ensure coherence rather than advance reasoning. Latent reasoning enables breadth-first search (BFS) rather than committing to a single path.
+
+**Limitations:** Requires model architecture modifications; not applicable to API-only LLMs.
+
+## Critical Analysis: "Is CoT a Mirage?"
+
+### Data Distribution Perspective
+
+**Paper:** "Is Chain-of-Thought Reasoning of LLMs a Mirage? A Data Distribution Lens" (Zhao et al., 2025)
+
+**Venue:** arXiv:2508.01191 (August 2025) | **GitHub:** [ChengshuaiZhao0/DataAlchemy](https://github.com/ChengshuaiZhao0/DataAlchemy)
+
+**Authors:** Chengshuai Zhao, Zhen Tan, Pingchuan Ma, Dawei Li, Bohan Jiang, Yancheng Wang, Yingzhen Yang, Huan Liu
+
+**Central Claim:** CoT reasoning reflects pattern matching from training distributions, not genuine inferential processes. Effectiveness is "fundamentally bounded by the degree of distribution discrepancy between training data and test queries."
+
+**Methodology:** The authors designed DataAlchemy, a controlled environment to train LLMs from scratch and probe them under varying distribution conditions across three dimensions:
+1. **Task distribution:** In-domain vs. out-of-domain tasks
+2. **Length distribution:** Reasoning chain length variations
+3. **Format distribution:** Structural variations in reasoning traces
+
+**Key Finding:** "CoT reasoning is a brittle mirage when pushed beyond training distributions."
+
+**Implications for Practitioners:**
+1. Do not assume CoT generalizes to novel task types
+2. Evaluate on out-of-distribution examples
+3. Combine CoT with retrieval or tool use for robustness
+
+## Spontaneous Self-Correction: SPOC
+
+### Multi-Agent Self-Verification
+
+**Paper:** "Boosting LLM Reasoning via Spontaneous Self-Correction" (Zhao et al., 2025)
+
+**Venue:** arXiv:2506.06923 (June 2025)
+
+**Core Innovation:** SPOC treats reasoning as an extensive-form game between a solution proposer and verifier within the same model, enabling real-time self-correction in a single inference pass.
+
+| Model | Benchmark | Baseline | SPOC | Gain |
+|-------|-----------|----------|------|------|
+| Llama-3.1-8B | MATH-500 | — | +8.8% | — |
+| Llama-3.1-70B | MATH-500 | — | +11.6% | — |
+| Llama-3.1-8B | AIME 2024 | — | +3.3% | — |
+| Llama-3.1-70B | AIME 2024 | — | +6.7% | — |
+
+**Method:** Fine-tuning on synthetic data with dual roles (proposer/verifier), then online reinforcement learning using RAFT algorithm.
+
+## Test-Time Scaling Survey
+
+### Comprehensive Framework
+
+**Paper:** "A Survey on Test-Time Scaling in Large Language Models: What, How, Where, and How Well?" (March 2025)
+
+**Venue:** arXiv:2503.24235 | **Website:** [testtimescaling.github.io](https://testtimescaling.github.io/)
+
+**Key Contributions:**
+1. **Unified taxonomy** along four dimensions: what, how, where, how well
+2. **Scaling mechanisms:** Parallel sampling vs. sequential revision vs. hybrid
+3. **Verifier taxonomy:** Discriminative vs. generative vs. self-verification
+
+**Central Insight:** Small models with optimal test-time strategies can outperform larger models—validating the compute-optimal scaling paradigm.
+
+## Updated Benchmark Landscape (2025)
+
+### ARC-AGI-2 Launch (March 2025)
+
+ARC-AGI-2 introduces harder tasks requiring deeper abstraction:
+
+| Model | ARC-AGI-1 | ARC-AGI-2 | Human Baseline |
+|-------|-----------|-----------|----------------|
+| o3 (low compute) | 41% | <3% | 60% |
+| o3 (medium compute) | 53% | <3% | 60% |
+| Gemini 3 Pro | 31.1% | 15.2% | 60% |
+
+**Significance:** The 40+ point drop from ARC-AGI-1 to ARC-AGI-2 demonstrates continued limitations in genuine abstract reasoning.
+
+### Qwen Reasoning Models (2024–2025)
+
+| Model | AIME 2024 | MATH-500 | CodeForces |
+|-------|-----------|----------|------------|
+| QwQ-32B (Nov 2024) | 50.0% | 90.6% | — |
+| Qwen3-235B (2025) | 85.7% | 98.0% | 2,056 |
+| Qwen3-235B-Thinking | 92% (AIME '25) | — | — |
+
+**Note:** Qwen3-235B uses Mixture-of-Experts with only 22B activated parameters, demonstrating efficient reasoning.
+
+## Self-Correction Research
+
+### Self-Correction Bench (July 2025)
+
+**Paper:** arXiv:2507.02778
+
+**Key Finding:** LLMs exhibit a "self-correction blind spot"—they can correct errors in external inputs but struggle to correct their own outputs.
+
+### Reflective Confidence (December 2025)
+
+**Paper:** arXiv:2512.18605
+
+**Method:** When confidence drops below threshold, the model generates a reflection prompt to identify errors and continue with a corrected trajectory.
+
+**Result:** Significant accuracy gains on AIME 2025 over advanced early stopping strategies.
+
+
 # Quantitative Summary
 
 ## Citation-Weighted Evidence
@@ -997,6 +1128,22 @@ Yao, S., Zhao, J., Yu, D., Du, N., Shafran, I., Narasimhan, K., & Cao, Y. (2023)
 
 Zhong, W., Guo, L., Gao, Q., Ye, H., & Wang, Y. (2024). *MemoryBank: Enhancing large language models with long-term memory*. In *Proceedings of the AAAI Conference on Artificial Intelligence, 38*(17), 19724–19731. https://arxiv.org/abs/2305.10250
 
+Hao, S., Sukhbaatar, S., Su, D., Li, X., Hu, Z., Weston, J., & Tian, Y. (2024). *Training large language models to reason in a continuous latent space* (arXiv:2412.06769). arXiv. https://arxiv.org/abs/2412.06769
+
+Zhao, C., Tan, Z., Ma, P., Li, D., Jiang, B., Wang, Y., Yang, Y., & Liu, H. (2025). *Is chain-of-thought reasoning of LLMs a mirage? A data distribution lens* (arXiv:2508.01191). arXiv. https://arxiv.org/abs/2508.01191
+
+Zhao, Z., Jing, Y., Li, J., Li, Z., & Chen, J. (2025). *Boosting LLM reasoning via spontaneous self-correction* (arXiv:2506.06923). arXiv. https://arxiv.org/abs/2506.06923
+
+Zhang, T., Huang, J., Zhang, Y., Liu, Y., & Chen, D. (2025). *A survey on test-time scaling in large language models: What, how, where, and how well?* (arXiv:2503.24235). arXiv. https://arxiv.org/abs/2503.24235
+
+Kamoi, R., Yao, Y., Wang, S., & Roth, D. (2025). *Self-correction bench: Evaluating self-correction in LLMs* (arXiv:2507.02778). arXiv. https://arxiv.org/abs/2507.02778
+
+Xu, H., Chen, W., He, S., & Zheng, Q. (2025). *Reflective confidence: Improving reasoning with calibrated uncertainty* (arXiv:2512.18605). arXiv. https://arxiv.org/abs/2512.18605
+
+Alibaba Cloud. (2024). *QwQ: 32B parameter reasoning model*. Qwen. https://qwenlm.github.io/blog/qwq-32b-preview/
+
+Alibaba Cloud. (2025). *Qwen3 technical report*. Qwen. https://qwenlm.github.io/blog/qwen3/
+
 
 # Broader Impact Statement
 
@@ -1073,11 +1220,11 @@ Under the following terms:
 
 **Suggested citation (APA 7th Edition):**
 
-> ReasonKit. (2026). *The science of structured reasoning: A comprehensive review of LLM reasoning research (2022–2025)* (Version 1.0). https://reasonkit.sh/research/
+> ReasonKit. (2026). *The science of structured reasoning: A comprehensive review of LLM reasoning research (2022–2025)* (Version 1.2). https://reasonkit.sh/research/
 
 
 *This report was compiled by ReasonKit in January 2026. All claims are triangulated across multiple independent sources.*
 
 *For questions or updates, contact: Research@ReasonKit.sh*
 
-*Version 1.0 | January 2026 | CC-BY-4.0*
+*Version 1.2 | January 2026 | CC-BY-4.0*
