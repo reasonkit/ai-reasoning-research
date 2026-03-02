@@ -279,9 +279,7 @@ Add these labels to your tables so readers know what to trust.
 
 ---
 
-## Files You Now Have
-
-### In `/home/zyxsys/RK-PROJECT/reasonkit-site/research/drafts/`:
+## Files in This Repository
 
 ```
 STATISTICAL_VALIDITY_RECOMMENDATIONS.md    (31 KB)
