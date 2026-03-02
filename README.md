@@ -62,7 +62,7 @@ make clean
 
 ## Report Quality
 
-- **22 claims verified** with 3+ independent sources (CONS-006 compliant)
+- **22 claims verified** with 3+ independent sources (triangulation)
 - **Statistical significance section** with confidence intervals and effect sizes
 - **Methods taxonomy matrix** comparing 7 reasoning approaches
 - **Use-case recommendation table** for production deployment
