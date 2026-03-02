@@ -4,7 +4,7 @@
 **Report Version:** 3.0.0 (APA 7th Edition)
 **Last Verified:** 2026-01-22
 **Status:** ALL CRITICAL CLAIMS VERIFIED
-**Compliance:** CONS-006 (3-source triangulation)
+**Compliance:** Triangulation (3+ independent sources per claim)
 
 ---
 
@@ -143,7 +143,7 @@
 ## QUALITY GATE STATUS
 
 - [x] All claims have minimum 2 sources
-- [x] Critical claims have 3+ sources (CONS-006)
+- [x] Critical claims have 3+ independent sources (triangulation)
 - [x] No fabricated data
 - [x] All URLs verified accessible
 - [x] Citation counts exact (not approximated)
@@ -152,5 +152,5 @@
 
 ---
 
-_Verification compliant with CONS-006 triangulation requirements_
+_Verification compliant with triangulation requirements (3+ independent sources)_
 _Generated: 2026-01-22_
